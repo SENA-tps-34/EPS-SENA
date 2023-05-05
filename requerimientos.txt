@@ -1,0 +1,28 @@
+// Requerimiento 
+REQUERIMIENTO PRINCIPAL
+# * Crear un login que permita ingresar a los users
+# ** permitir opcion donde si es medico o admins
+# *** el administrador puede eliminar o agregar medico
+# **** Los medicos pueden asignar medicamentos a los pacientes
+# El sistema debe permitir agregar a pacientes nuevos
+# ***** El admin puede alterar tipo de doc y numero del doc
+
+Requerimiento Funcionales
+
+El sistema debe permitir agregar nuevos pacientes.
+El sistema debe permitir asignar medicamentos a pacientes.
+El sistema debe permitir a un paciente consultar los medicamentos que un médico le ha formulado.
+El sistema permite agregar nuevos médicos.
+El sistema permite a un paciente consultar sus medicamentos formulados de toda la semana o de un día particular.
+
+
+La base de datos tiene que ser en Local host en MySQL,
+sin embargo eso es una tarea que hay que implementar despues que 
+el programa este creado.
+
+MEDICOS 
+aclarar, Los medicos solos pueden agregar pacientes, recetar medicamentos y actulizar los datos del pacientes,
+NO PUEDEN MODIFICAR LOS QUE ES C.C Y/O Numero de los pacientes
+
+ADMINISTRADOR 
+solo pueden agregar medicos y quitar, pueden modificar el C.C Y/O numero de identificacion de los pacientes
