@@ -102,6 +102,7 @@ public class PerfilAdmin extends javax.swing.JFrame {
 
         btnAgregarMedicos.setBackground(new java.awt.Color(218, 234, 247));
         btnAgregarMedicos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/estetoscopio.png"))); // NOI18N
+        btnAgregarMedicos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAgregarMedicos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarMedicosActionPerformed(evt);
@@ -110,6 +111,7 @@ public class PerfilAdmin extends javax.swing.JFrame {
 
         btnAsignarUsuarios.setBackground(new java.awt.Color(218, 234, 247));
         btnAsignarUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/usuario.png"))); // NOI18N
+        btnAsignarUsuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAsignarUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAsignarUsuariosActionPerformed(evt);
@@ -118,6 +120,7 @@ public class PerfilAdmin extends javax.swing.JFrame {
 
         btnAgregarMedicamentos.setBackground(new java.awt.Color(218, 234, 247));
         btnAgregarMedicamentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/medicamento.png"))); // NOI18N
+        btnAgregarMedicamentos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAgregarMedicamentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarMedicamentosActionPerformed(evt);
@@ -181,17 +184,17 @@ public class PerfilAdmin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAsignarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarUsuariosActionPerformed
-        new AdminUsuarios().setVisible(true);
+        new Admin_AsignarUsuarios().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAsignarUsuariosActionPerformed
 
     private void btnAgregarMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarMedicosActionPerformed
-        new AdminMedicos().setVisible(true);
+        new Admin_AgregarMedicos().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAgregarMedicosActionPerformed
 
     private void btnAgregarMedicamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarMedicamentosActionPerformed
-        new adminMedicamentos().setVisible(true);
+        new Admin_Medicamentos().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAgregarMedicamentosActionPerformed
 

@@ -98,6 +98,7 @@ public class PerfilPaciente extends javax.swing.JFrame {
         btnCitas.setBackground(new java.awt.Color(218, 234, 247));
         btnCitas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/chequeo.png"))); // NOI18N
         btnCitas.setText("jButton1");
+        btnCitas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCitas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCitasActionPerformed(evt);
@@ -107,6 +108,7 @@ public class PerfilPaciente extends javax.swing.JFrame {
         btnMedicamentos.setBackground(new java.awt.Color(218, 234, 247));
         btnMedicamentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/drugstore.png"))); // NOI18N
         btnMedicamentos.setText("jButton2");
+        btnMedicamentos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnMedicamentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMedicamentosActionPerformed(evt);
@@ -142,9 +144,9 @@ public class PerfilPaciente extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMedicamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnMedicamentos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -159,14 +161,14 @@ public class PerfilPaciente extends javax.swing.JFrame {
 
     private void btnCitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCitasActionPerformed
         /*mostrar ventana de citas */
-        new CitasPaciente().setVisible(true);
+        new Paciente_Citas().setVisible(true);
         this.dispose();/*cerrar*/
 
 
     }//GEN-LAST:event_btnCitasActionPerformed
 
     private void btnMedicamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMedicamentosActionPerformed
-        new MedicamentosPaciente().setVisible(true);
+        new Paciente_Medicamentos().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnMedicamentosActionPerformed
 
