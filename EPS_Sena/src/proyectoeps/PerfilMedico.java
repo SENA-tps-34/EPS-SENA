@@ -190,12 +190,13 @@ public class PerfilMedico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCitasActionPerformed
 
     private void btnInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInformacionActionPerformed
-        new Medico_Medicamentos().setVisible(true);
+        new Medico_AIDPaciente().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnInformacionActionPerformed
 
     private void btnMedicamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMedicamentosActionPerformed
-        // TODO add your handling code here:
+        new Medico_Medicamentos().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnMedicamentosActionPerformed
 
     /**

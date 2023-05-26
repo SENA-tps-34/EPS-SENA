@@ -26,6 +26,7 @@ public class Medico_Citas extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        labelCrearCita = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
@@ -72,7 +73,7 @@ public class Medico_Citas extends javax.swing.JFrame {
         btnvolver.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
         btnvolver.setText("atras ");
         btnvolver.setToolTipText("");
-        btnvolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnvolver.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnvolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnvolverActionPerformed(evt);
@@ -89,7 +90,7 @@ public class Medico_Citas extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(70, 70, 70)
                         .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 557, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 594, Short.MAX_VALUE)
                         .addComponent(jLabel6))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -124,9 +125,18 @@ public class Medico_Citas extends javax.swing.JFrame {
 
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Citas Programadas");
-        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        labelCrearCita.setBackground(new java.awt.Color(0, 0, 0));
+        labelCrearCita.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
+        labelCrearCita.setText("Crear Cita");
+        labelCrearCita.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        labelCrearCita.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelCrearCitaMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -141,7 +151,9 @@ public class Medico_Citas extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(51, 51, 51)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelCrearCita, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -154,7 +166,9 @@ public class Medico_Citas extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelCrearCita, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(240, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2);
@@ -166,6 +180,10 @@ public class Medico_Citas extends javax.swing.JFrame {
         new PerfilMedico().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnvolverActionPerformed
+
+    private void labelCrearCitaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelCrearCitaMouseClicked
+       new Medico_CrearCita().setVisible(true);
+    }//GEN-LAST:event_labelCrearCitaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -217,5 +235,6 @@ public class Medico_Citas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel labelCrearCita;
     // End of variables declaration//GEN-END:variables
 }

@@ -49,7 +49,7 @@ public class PerfilPaciente extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(92, 92, 92)
                 .addComponent(jLabel2)
-                .addContainerGap(868, Short.MAX_VALUE))
+                .addContainerGap(976, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,7 +97,6 @@ public class PerfilPaciente extends javax.swing.JFrame {
 
         btnCitas.setBackground(new java.awt.Color(218, 234, 247));
         btnCitas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/chequeo.png"))); // NOI18N
-        btnCitas.setText("jButton1");
         btnCitas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCitas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,7 +106,7 @@ public class PerfilPaciente extends javax.swing.JFrame {
 
         btnMedicamentos.setBackground(new java.awt.Color(218, 234, 247));
         btnMedicamentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/drugstore.png"))); // NOI18N
-        btnMedicamentos.setText("jButton2");
+        btnMedicamentos.setActionCommand("");
         btnMedicamentos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnMedicamentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,15 +142,15 @@ public class PerfilPaciente extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnMedicamentos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMedicamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6))
-                .addContainerGap(88, Short.MAX_VALUE))
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel5))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);

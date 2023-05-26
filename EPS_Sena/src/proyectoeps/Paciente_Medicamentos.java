@@ -6,13 +6,7 @@ public class Paciente_Medicamentos extends javax.swing.JFrame {
     public Paciente_Medicamentos() {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
-        TablaMedicamentos tabla = new TablaMedicamentos();
-        ventana.removeAll();
-        
-        ventana.add(tabla);
-        ventana.revalidate();
-        ventana.repaint();
-        tabla.setVisible(true);
+       
 
     }
     
@@ -30,7 +24,8 @@ public class Paciente_Medicamentos extends javax.swing.JFrame {
         btnvolver = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        ventana = new javax.swing.JDesktopPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
@@ -76,7 +71,7 @@ public class Paciente_Medicamentos extends javax.swing.JFrame {
         btnvolver.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
         btnvolver.setText("atras ");
         btnvolver.setToolTipText("");
-        btnvolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnvolver.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnvolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnvolverActionPerformed(evt);
@@ -92,7 +87,7 @@ public class Paciente_Medicamentos extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(70, 70, 70)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 670, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 686, Short.MAX_VALUE)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -129,16 +124,26 @@ public class Paciente_Medicamentos extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(45, 65, 115));
         jLabel5.setText("Consulta de medicamentos ");
 
-        javax.swing.GroupLayout ventanaLayout = new javax.swing.GroupLayout(ventana);
-        ventana.setLayout(ventanaLayout);
-        ventanaLayout.setHorizontalGroup(
-            ventanaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 666, Short.MAX_VALUE)
-        );
-        ventanaLayout.setVerticalGroup(
-            ventanaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 342, Short.MAX_VALUE)
-        );
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Medicamento", "Observaciones"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -152,8 +157,8 @@ public class Paciente_Medicamentos extends javax.swing.JFrame {
                         .addGap(34, 34, 34)
                         .addComponent(jLabel5))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(188, 188, 188)
-                        .addComponent(ventana, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(26, 26, 26)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -163,10 +168,10 @@ public class Paciente_Medicamentos extends javax.swing.JFrame {
                 .addGap(54, 54, 54)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ventana, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);
@@ -227,7 +232,8 @@ public class Paciente_Medicamentos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JDesktopPane ventana;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
