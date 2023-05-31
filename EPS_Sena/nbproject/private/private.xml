@@ -2,6 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/lauraTPS-34/EPS-SENA/EPS_Sena/src/proyectoeps/PerfilPaciente.java</file>
+            <file>file:/D:/lauraTPS-34/EPS-SENA/EPS_Sena/src/proyectoeps/Medico_CrearCita.java</file>
+            <file>file:/D:/lauraTPS-34/EPS-SENA/EPS_Sena/src/proyectoeps/PerfilMedico.java</file>
+            <file>file:/D:/lauraTPS-34/EPS-SENA/EPS_Sena/src/proyectoeps/Paciente_SolicitarCita.java</file>
+            <file>file:/D:/lauraTPS-34/EPS-SENA/EPS_Sena/src/proyectoeps/Paciente_Citas.java</file>
+            <file>file:/D:/lauraTPS-34/EPS-SENA/EPS_Sena/src/proyectoeps/TablaCitasProgramadas.java</file>
+            <file>file:/D:/lauraTPS-34/EPS-SENA/EPS_Sena/src/proyectoeps/Medico_Citas.java</file>
+        </group>
     </open-files>
 </project-private>

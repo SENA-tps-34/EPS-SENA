@@ -27,7 +27,7 @@ public class Paciente_Citas extends javax.swing.JFrame {
         btnvolver = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        labelAgendarCita = new javax.swing.JLabel();
+        labelSolicitarCita = new javax.swing.JLabel();
         labelCitasProgramadas = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -129,9 +129,14 @@ public class Paciente_Citas extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(45, 65, 115));
         jLabel5.setText("Citas medicas ");
 
-        labelAgendarCita.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
-        labelAgendarCita.setText("Agendar cita ");
-        labelAgendarCita.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        labelSolicitarCita.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
+        labelSolicitarCita.setText("Solicitar cita ");
+        labelSolicitarCita.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        labelSolicitarCita.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelSolicitarCitaMouseClicked(evt);
+            }
+        });
 
         labelCitasProgramadas.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
         labelCitasProgramadas.setText("Citas programadas ");
@@ -156,7 +161,7 @@ public class Paciente_Citas extends javax.swing.JFrame {
                         .addGap(65, 65, 65)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelCitasProgramadas)
-                            .addComponent(labelAgendarCita))))
+                            .addComponent(labelSolicitarCita))))
                 .addContainerGap(854, Short.MAX_VALUE))
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
@@ -171,7 +176,7 @@ public class Paciente_Citas extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelCitasProgramadas)
                 .addGap(31, 31, 31)
-                .addComponent(labelAgendarCita)
+                .addComponent(labelSolicitarCita)
                 .addContainerGap(301, Short.MAX_VALUE))
         );
 
@@ -190,6 +195,10 @@ public class Paciente_Citas extends javax.swing.JFrame {
        this.dispose();
        
     }//GEN-LAST:event_labelCitasProgramadasMouseClicked
+
+    private void labelSolicitarCitaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelSolicitarCitaMouseClicked
+        new Paciente_SolicitarCita().setVisible(true);
+    }//GEN-LAST:event_labelSolicitarCitaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -240,7 +249,7 @@ public class Paciente_Citas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel labelAgendarCita;
     private javax.swing.JLabel labelCitasProgramadas;
+    private javax.swing.JLabel labelSolicitarCita;
     // End of variables declaration//GEN-END:variables
 }
