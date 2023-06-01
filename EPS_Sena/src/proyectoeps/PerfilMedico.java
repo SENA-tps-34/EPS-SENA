@@ -1,5 +1,8 @@
 package proyectoeps;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+
 
 public class PerfilMedico extends javax.swing.JFrame {
 
@@ -7,6 +10,14 @@ public class PerfilMedico extends javax.swing.JFrame {
     public PerfilMedico() {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
+        setIconImage(getIconImage());
+    }
+// icono JFrame 
+    @Override
+    public Image getIconImage(){
+    Image retValue = Toolkit.getDefaultToolkit().getImage (ClassLoader.getSystemResource("IMG/Logosena.png"));
+    return retValue;
+    
     }
 
    

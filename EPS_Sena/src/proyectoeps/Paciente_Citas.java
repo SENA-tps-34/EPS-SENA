@@ -1,6 +1,9 @@
 
 package proyectoeps;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+
 
 
 public class Paciente_Citas extends javax.swing.JFrame {
@@ -8,9 +11,14 @@ public class Paciente_Citas extends javax.swing.JFrame {
     public Paciente_Citas() {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
-        
-        
-
+             setIconImage(getIconImage());
+    }
+// icono JFrame 
+    @Override
+    public Image getIconImage(){
+    Image retValue = Toolkit.getDefaultToolkit().getImage (ClassLoader.getSystemResource("IMG/Logosena.png"));
+    return retValue;
+    
     }
 
     @SuppressWarnings("unchecked")

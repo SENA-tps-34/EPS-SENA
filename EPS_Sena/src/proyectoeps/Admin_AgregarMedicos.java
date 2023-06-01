@@ -1,11 +1,22 @@
 
 package proyectoeps;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+
 public class Admin_AgregarMedicos extends javax.swing.JFrame {
 
     public Admin_AgregarMedicos() {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
+            setIconImage(getIconImage());
+    }
+// icono JFrame 
+    @Override
+    public Image getIconImage(){
+    Image retValue = Toolkit.getDefaultToolkit().getImage (ClassLoader.getSystemResource("IMG/Logosena.png"));
+    return retValue;
+    
     }
 
     @SuppressWarnings("unchecked")

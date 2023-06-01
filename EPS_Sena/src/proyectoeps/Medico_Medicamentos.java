@@ -1,5 +1,8 @@
 package proyectoeps;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+
 
 public class Medico_Medicamentos extends javax.swing.JFrame {
 
@@ -7,7 +10,14 @@ public class Medico_Medicamentos extends javax.swing.JFrame {
     public Medico_Medicamentos() {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
-        
+        setIconImage(getIconImage());
+    }
+// icono JFrame 
+    @Override
+    public Image getIconImage(){
+    Image retValue = Toolkit.getDefaultToolkit().getImage (ClassLoader.getSystemResource("IMG/Logosena.png"));
+    return retValue;
+    
     }
 
     
@@ -73,7 +83,7 @@ public class Medico_Medicamentos extends javax.swing.JFrame {
         btnvolver.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
         btnvolver.setText("atras");
         btnvolver.setToolTipText("");
-        btnvolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnvolver.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnvolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnvolverActionPerformed(evt);
@@ -135,7 +145,7 @@ public class Medico_Medicamentos extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(jLabel3)
-                .addContainerGap(581, Short.MAX_VALUE))
+                .addContainerGap(653, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jSeparator1)
         );
@@ -147,7 +157,7 @@ public class Medico_Medicamentos extends javax.swing.JFrame {
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(193, Short.MAX_VALUE))
+                .addContainerGap(317, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);

@@ -1,12 +1,22 @@
 package proyectoeps;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+
 public class Medico_AIDPaciente extends javax.swing.JFrame {
 
  
     public Medico_AIDPaciente() {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
-
+        setIconImage(getIconImage());
+    }
+// icono JFrame 
+    @Override
+    public Image getIconImage(){
+    Image retValue = Toolkit.getDefaultToolkit().getImage (ClassLoader.getSystemResource("IMG/Logosena.png"));
+    return retValue;
+    
     }
 
   

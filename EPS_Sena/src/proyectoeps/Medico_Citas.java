@@ -1,5 +1,8 @@
 package proyectoeps;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+
 
 public class Medico_Citas extends javax.swing.JFrame {
 
@@ -7,7 +10,14 @@ public class Medico_Citas extends javax.swing.JFrame {
     public Medico_Citas() {
         initComponents();
            setExtendedState(MAXIMIZED_BOTH);
-        
+                setIconImage(getIconImage());
+    }
+// icono JFrame 
+    @Override
+    public Image getIconImage(){
+    Image retValue = Toolkit.getDefaultToolkit().getImage (ClassLoader.getSystemResource("IMG/Logosena.png"));
+    return retValue;
+    
     }
 
   
@@ -73,7 +83,7 @@ public class Medico_Citas extends javax.swing.JFrame {
         btnvolver.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
         btnvolver.setText("atras ");
         btnvolver.setToolTipText("");
-        btnvolver.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnvolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnvolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnvolverActionPerformed(evt);
@@ -126,7 +136,7 @@ public class Medico_Citas extends javax.swing.JFrame {
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
         jLabel2.setText("Citas Programadas");
-        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         labelAgendarCita.setBackground(new java.awt.Color(0, 0, 0));
         labelAgendarCita.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
