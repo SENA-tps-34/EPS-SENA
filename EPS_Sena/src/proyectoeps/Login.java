@@ -1,30 +1,27 @@
-
 package proyectoeps;
 
-import java.awt.Image;
-import java.awt.Toolkit;
-
+import DataBase.Conexion;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
 
-    
+    Conexion cc = new Conexion();
+    Connection connection = cc.conectart();
+
     public Login() {
+
         initComponents();
         /*INICIAR MAXIMIZADO*/
         setExtendedState(MAXIMIZED_BOTH);
-        setIconImage(getIconImage());
+
     }
-// icono JFrame 
-    @Override
-    public Image getIconImage(){
-    Image retValue = Toolkit.getDefaultToolkit().getImage (ClassLoader.getSystemResource("IMG/Logosena.png"));
-    return retValue;
-    
-    }
-    
-   
+
     @SuppressWarnings("unchecked")
-   
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -46,7 +43,6 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-        setIconImages(null);
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel1.setBackground(new java.awt.Color(45, 65, 115));
@@ -155,34 +151,34 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(165, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel6)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(165, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(286, 286, 286))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(251, 251, 251))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(244, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel6)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8)
+                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jLabel3)
-                .addGap(59, 59, 59)
+                .addGap(47, 47, 47)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addGap(18, 18, 18)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -213,14 +209,82 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-      
+
+        validarUsuarioPAC();
+        validarUsuarioMed();
+
     }//GEN-LAST:event_btnIngresarActionPerformed
+
+    public void validarUsuarioPAC() {
+        int resultado = 0;
+        String identification = jTextPane1.getText();
+        String password = new String(jPasswordField1.getPassword());
+
+        String SQL = "SELECT * FROM Pacientes WHERE PacIdentificacion=? and PacPassword=?";
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(SQL);
+            stmt.setString(1, identification);
+            stmt.setString(2, password);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                // Usuario válido
+                PerfilPaciente form = new PerfilPaciente();
+                form.setVisible(true);
+                this.dispose();
+            } else {
+                // Usuario inválido
+                JOptionPane.showMessageDialog(null, "Credenciales inválidas");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+    }
+    public void validarUsuarioMed() {
+        int resultado = 0;
+        String identification = jTextPane1.getText();
+        String password = new String(jPasswordField1.getPassword());
+
+        String SQL = "SELECT * FROM medicos WHERE MedIdentificacion=? and MedPassword=?";
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(SQL);
+            stmt.setString(1, identification);
+            stmt.setString(2, password);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                // Usuario válido
+                PerfilMedico form = new PerfilMedico();
+                form.setVisible(true);
+                this.dispose();
+            } else {
+                // Usuario inválido
+                JOptionPane.showMessageDialog(null, "Credenciales inválidas");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+    }
 
     private void jTextPane1VetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_jTextPane1VetoableChange
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextPane1VetoableChange
+    private boolean verifyCredentials(String username, String password) {
+        // Implementa la lógica para verificar las credenciales en la base de datos
+        // Retorna true si son válidas, de lo contrario, false
+        return true;
+        // Implementa la lógica para verificar las credenciales en la base de datos
+        // Retorna true si son válidas, de lo contrario, false
+    }
 
-   
+    private String getPrivileges(String username) {
+        // Implementa la lógica para obtener los privilegios asociados con el usuario desde la base de datos
+        // Retorna los privilegios como una cadena de texto (ejemplo: "paciente", "admin", "medico")
+        return null;
+    }
+
     public static void main(String args[]) {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -242,7 +306,7 @@ public class Login extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -250,10 +314,10 @@ public class Login extends javax.swing.JFrame {
                 new Login().setVisible(true);
             }
         });
-        
+
     }
 
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIngresar;
     private javax.swing.JComboBox<String> jComboBox1;
@@ -271,4 +335,8 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextPane jTextPane1;
     // End of variables declaration//GEN-END:variables
+
+    private void showError(String credenciales_inválidas) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
