@@ -1,6 +1,7 @@
 package proyectoeps;
 
 import DataBase.Conexion;
+import com.sun.tools.javac.jvm.ByteCodes;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -210,13 +211,18 @@ public class Login extends javax.swing.JFrame {
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
 
-        validarUsuarioPAC();
-        validarUsuarioMed();
-
+        boolean isAuthenticatedPAC= validarUsuarioPAC();
+        boolean isAuthenticatedMED = validarUsuarioMed();
+        
+        if (!isAuthenticatedPAC && !isAuthenticatedMED){
+            
+            JOptionPane.showMessageDialog(null, "Credenciales invalidas");
+        
+        }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
-    public void validarUsuarioPAC() {
-        int resultado = 0;
+    public boolean validarUsuarioPAC() {
+        
         String identification = jTextPane1.getText();
         String password = new String(jPasswordField1.getPassword());
 
@@ -233,16 +239,16 @@ public class Login extends javax.swing.JFrame {
                 PerfilPaciente form = new PerfilPaciente();
                 form.setVisible(true);
                 this.dispose();
-            } else {
-                // Usuario inválido
-                JOptionPane.showMessageDialog(null, "Credenciales inválidas");
-            }
+                return true;
+                    }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
+        
+        return false;
     }
-    public void validarUsuarioMed() {
-        int resultado = 0;
+
+    public boolean validarUsuarioMed() {
         String identification = jTextPane1.getText();
         String password = new String(jPasswordField1.getPassword());
 
@@ -259,6 +265,8 @@ public class Login extends javax.swing.JFrame {
                 PerfilMedico form = new PerfilMedico();
                 form.setVisible(true);
                 this.dispose();
+                return true;
+
             } else {
                 // Usuario inválido
                 JOptionPane.showMessageDialog(null, "Credenciales inválidas");
@@ -266,6 +274,7 @@ public class Login extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
+        return false;
     }
 
     private void jTextPane1VetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_jTextPane1VetoableChange
