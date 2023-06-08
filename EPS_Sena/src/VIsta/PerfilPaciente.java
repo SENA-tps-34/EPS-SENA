@@ -1,8 +1,10 @@
 
-package proyectoeps;
+package VIsta;
 
+import VIsta.Paciente_Medicamentos;
 import java.awt.Image;
 import java.awt.Toolkit;
+import VIsta.Paciente_Citas;
 
 public class PerfilPaciente extends javax.swing.JFrame {
 
@@ -117,7 +119,6 @@ public class PerfilPaciente extends javax.swing.JFrame {
 
         btnMedicamentos.setBackground(new java.awt.Color(218, 234, 247));
         btnMedicamentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/drugstore.png"))); // NOI18N
-        btnMedicamentos.setActionCommand("");
         btnMedicamentos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnMedicamentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -218,8 +219,8 @@ public class PerfilPaciente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCitas;
-    private javax.swing.JButton btnMedicamentos;
+    public javax.swing.JButton btnCitas;
+    public javax.swing.JButton btnMedicamentos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

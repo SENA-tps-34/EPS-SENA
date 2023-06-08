@@ -1,5 +1,5 @@
 
-package proyectoeps;
+package VIsta;
 
 import java.awt.Image;
 import java.awt.Toolkit;

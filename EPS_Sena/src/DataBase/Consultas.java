@@ -7,15 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 
-/**
- *
- * @author ADSI
- */
 public class Consultas extends Conexion {
         /**
      * Recupera los datos de la tabla "PACIENTES" de la base de datos y los muestra en la consola.
