@@ -1,3 +1,5 @@
+create database gestionmedica;
+use gestionmedica;
 -- phpMyAdmin SQL Dump
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
@@ -231,3 +233,20 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+ALTER TABLE pacientes
+modify PacTipoDocumento varchar (20) not null;
+ALTER TABLE admin
+modify AdminTipoDocumento varchar  (20)not null;
+ALTER TABLE medicos 
+modify MedTipoDocumento varchar (20)not null;
+
+INSERT INTO `pacientes` (`PacTipoDocumento`) VALUES
+('T.identidad'),
+('T.identidad'),
+('Cedula');
+
+
+
+
+

@@ -1,10 +1,10 @@
 
-package VIsta;
+package Vistas;
 
-import VIsta.Paciente_Medicamentos;
+import Vistas.Paciente_Medicamentos;
 import java.awt.Image;
 import java.awt.Toolkit;
-import VIsta.Paciente_Citas;
+import Vistas.Paciente_Citas;
 
 public class PerfilPaciente extends javax.swing.JFrame {
 
