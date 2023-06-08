@@ -1,11 +1,10 @@
 package proyectoeps;
 
 import DataBase.Conexion;
-import com.sun.tools.javac.jvm.ByteCodes;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
@@ -18,8 +17,8 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         /*INICIAR MAXIMIZADO*/
         setExtendedState(MAXIMIZED_BOTH);
-
     }
+
 
     @SuppressWarnings("unchecked")
 
@@ -249,6 +248,7 @@ public class Login extends javax.swing.JFrame {
     }
 
     public boolean validarUsuarioMed() {
+        
         String identification = jTextPane1.getText();
         String password = new String(jPasswordField1.getPassword());
 
@@ -278,21 +278,9 @@ public class Login extends javax.swing.JFrame {
     }
 
     private void jTextPane1VetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_jTextPane1VetoableChange
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextPane1VetoableChange
-    private boolean verifyCredentials(String username, String password) {
-        // Implementa la lógica para verificar las credenciales en la base de datos
-        // Retorna true si son válidas, de lo contrario, false
-        return true;
-        // Implementa la lógica para verificar las credenciales en la base de datos
-        // Retorna true si son válidas, de lo contrario, false
-    }
 
-    private String getPrivileges(String username) {
-        // Implementa la lógica para obtener los privilegios asociados con el usuario desde la base de datos
-        // Retorna los privilegios como una cadena de texto (ejemplo: "paciente", "admin", "medico")
-        return null;
-    }
+    }//GEN-LAST:event_jTextPane1VetoableChange
+
 
     public static void main(String args[]) {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
