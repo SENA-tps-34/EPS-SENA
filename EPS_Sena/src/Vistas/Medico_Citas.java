@@ -34,9 +34,8 @@ public class Medico_Citas extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         btnvolver = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        labelCitasProgramadas = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        labelAgendarCita = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
@@ -133,18 +132,13 @@ public class Medico_Citas extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(45, 65, 115));
         jLabel1.setText("Citas Medicas");
 
-        jLabel2.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel2.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
-        jLabel2.setText("Citas Programadas");
-        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        labelAgendarCita.setBackground(new java.awt.Color(0, 0, 0));
-        labelAgendarCita.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
-        labelAgendarCita.setText("Agendar Cita");
-        labelAgendarCita.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        labelAgendarCita.addMouseListener(new java.awt.event.MouseAdapter() {
+        labelCitasProgramadas.setBackground(new java.awt.Color(0, 0, 0));
+        labelCitasProgramadas.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
+        labelCitasProgramadas.setText("Citas Programadas");
+        labelCitasProgramadas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        labelCitasProgramadas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                labelAgendarCitaMouseClicked(evt);
+                labelCitasProgramadasMouseClicked(evt);
             }
         });
 
@@ -161,9 +155,7 @@ public class Medico_Citas extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(51, 51, 51)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelAgendarCita, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(labelCitasProgramadas, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -175,10 +167,8 @@ public class Medico_Citas extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelAgendarCita, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(240, Short.MAX_VALUE))
+                .addComponent(labelCitasProgramadas, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(302, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2);
@@ -191,9 +181,11 @@ public class Medico_Citas extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnvolverActionPerformed
 
-    private void labelAgendarCitaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelAgendarCitaMouseClicked
-       new Medico_CrearCita().setVisible(true);
-    }//GEN-LAST:event_labelAgendarCitaMouseClicked
+    private void labelCitasProgramadasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelCitasProgramadasMouseClicked
+       new Medico_CitasProgramadas().setVisible(true);
+       this.dispose();
+            
+    }//GEN-LAST:event_labelCitasProgramadasMouseClicked
 
     /**
      * @param args the command line arguments
@@ -236,7 +228,6 @@ public class Medico_Citas extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnvolver;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -245,6 +236,6 @@ public class Medico_Citas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel labelAgendarCita;
+    private javax.swing.JLabel labelCitasProgramadas;
     // End of variables declaration//GEN-END:variables
 }

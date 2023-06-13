@@ -202,7 +202,7 @@ public class Paciente_Citas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnvolverActionPerformed
 
     private void labelCitasProgramadasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelCitasProgramadasMouseClicked
-       new TablaCitasProgramadas().setVisible(true);
+       new Paciente_CitasProgramadas().setVisible(true);
        this.dispose();
        
     }//GEN-LAST:event_labelCitasProgramadasMouseClicked
