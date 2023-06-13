@@ -30,11 +30,15 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admin` (
+ `tipoDocumento` varchar(50) NOT NULL,
   `AdminId` int(11) NOT NULL,
   `AdminName` varchar(50) NOT NULL,
   `AdminLastN` varchar(50) NOT NULL,
   `AdminPass` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+
+
+
 
 --
 -- Volcado de datos para la tabla `admin`
@@ -57,7 +61,11 @@ CREATE TABLE `citas` (
   `CitMedico` int(11) NOT NULL,
   `CitConsultorio` int(11) NOT NULL,
   `CitEstado` varchar(20) DEFAULT NULL,
-  `CitObservaciones` varchar(200) DEFAULT NULL
+  `CitObservaciones` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (CitNumero),
+  FOREIGN KEY (CitPaciente) REFERENCES pacientes(PacIdentificasion),
+  FOREIGN KEY (CitMedico) REFERENCES medicos(MedIdentificacion),
+  FOREIGN KEY (CitConsultorio) REFERENCES consultorios(ConNumero)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -75,7 +83,8 @@ INSERT INTO `citas` (`CitNumero`, `CitFecha`, `CitHora`, `CitPaciente`, `CitMedi
 
 CREATE TABLE `consultorios` (
   `ConNumero` int(11) NOT NULL,
-  `ConNombre` varchar(50) NOT NULL
+  `ConNombre` varchar(50) NOT NULL,
+  PRIMARY KEY (ConNumero)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -92,10 +101,12 @@ INSERT INTO `consultorios` (`ConNumero`, `ConNombre`) VALUES
 --
 
 CREATE TABLE `medicos` (
+  `tipoDocumento` varchar(50) NOT NULL,
   `MedIdentificacion` int(11) NOT NULL,
   `MedNombre` varchar(50) NOT NULL,
   `MedApellidos` varchar(50) NOT NULL,
-  `MedPassword` varchar(50) DEFAULT NULL
+  `MedPassword` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (MedIdentificacion)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -112,12 +123,14 @@ INSERT INTO `medicos` (`MedIdentificacion`, `MedNombre`, `MedApellidos`, `MedPas
 --
 
 CREATE TABLE `pacientes` (
+  `tipoDocumento` varchar(50) NOT NULL,
   `PacIdentificacion` int(11) NOT NULL,
   `PacNombre` varchar(50) NOT NULL,
   `PacApellidos` varchar(50) NOT NULL,
   `PacFechaNacimiento` date DEFAULT NULL,
   `PacSexo` char(1) DEFAULT NULL,
-  `PacPassword` varchar(50) DEFAULT NULL
+  `PacPassword` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (PacIdentificasion)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -142,7 +155,9 @@ CREATE TABLE `tratamientos` (
   `TraFechaInicio` date DEFAULT NULL,
   `TraFechaFin` date DEFAULT NULL,
   `TraObservaciones` varchar(200) DEFAULT NULL,
-  `TraPaciente` int(11) NOT NULL
+  `TraPaciente` int(11) NOT NULL,
+  PRIMARY KEY (TraNumero),
+  FOREIGN KEY (TraPaciente) REFERENCES pacientes(PacIdentificasion)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -245,8 +260,3 @@ INSERT INTO `pacientes` (`PacTipoDocumento`) VALUES
 ('T.identidad'),
 ('T.identidad'),
 ('Cedula');
-
-
-
-
-
