@@ -39,7 +39,7 @@ public class Usuario {
                 return false;
             }
         }catch(SQLException e){
-            e.printStackTrace();
+            e.printStackTrace();    
             return false;
         }
     }

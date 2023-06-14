@@ -16,19 +16,18 @@ PRIMARY KEY (IdRoles)
 
 -- TABLA USUARIOS 
 CREATE TABLE usuarios (
+TipoDocumento varchar (30) not null,
 Identificacion int NOT NULL,
 Nombre varchar(200) NOT NULL,
-Fecha_Nacimiento  date NOT NULL,
-Sexo char(1) NOT NULL,
-Contraseña varchar(50) DEFAULT NULL,
+Fecha_Nacimiento  date DEFAULT NULL,
+Sexo char(1) DEFAULT NULL,
+Contraseña varchar(50) NOT NULL,
 Consultorio_Medico int DEFAULT NULL,
 IdRoles int NOT NULL,
 PRIMARY KEY (Identificacion), 
 FOREIGN KEY (IdRoles) references roles (IdRoles)
 )ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-ALTER TABLE usuarios 
-ADD TipoDocumento varchar (30) not null;
 
 
 -- TABLA CITAS
