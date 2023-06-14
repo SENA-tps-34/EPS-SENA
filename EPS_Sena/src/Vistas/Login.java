@@ -3,6 +3,7 @@ package Vistas;
 import Controller.LoginController;
 import java.awt.Image;
 import java.awt.Toolkit;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
@@ -108,8 +109,13 @@ public class Login extends javax.swing.JFrame {
         jLabel6.setText("Numero de documento");
 
         jComboboxTipoDocumento.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jComboboxTipoDocumento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Cedula", "Tarjeta de Identidad ", "Pasaporte" }));
+        jComboboxTipoDocumento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cedula", "Tarjeta de Identidad ", "Pasaporte" }));
         jComboboxTipoDocumento.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jComboboxTipoDocumento.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboboxTipoDocumentoItemStateChanged(evt);
+            }
+        });
         jComboboxTipoDocumento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboboxTipoDocumentoActionPerformed(evt);
@@ -235,6 +241,10 @@ public class Login extends javax.swing.JFrame {
     private void jComboboxTipoDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboboxTipoDocumentoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboboxTipoDocumentoActionPerformed
+
+    private void jComboboxTipoDocumentoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboboxTipoDocumentoItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboboxTipoDocumentoItemStateChanged
 
     public static void main(String args[]) {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
