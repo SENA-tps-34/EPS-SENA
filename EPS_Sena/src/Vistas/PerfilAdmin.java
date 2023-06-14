@@ -198,7 +198,7 @@ public class PerfilAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarMedicosActionPerformed
 
     private void btnAsignarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarUsuariosActionPerformed
-       new Admin_AsignarUsuarios().setVisible(true);
+       new Admin_AgregarPacientes().setVisible(true);
        this.dispose();
     }//GEN-LAST:event_btnAsignarUsuariosActionPerformed
 
