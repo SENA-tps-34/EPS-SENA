@@ -1,19 +1,11 @@
 package Vistas;
 
-import Vistas.PerfilPaciente;
-import Modelo.Conexion;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import javax.swing.JOptionPane;
-import Vistas.PerfilMedico;
+import Controller.LoginController;
 import java.awt.Image;
 import java.awt.Toolkit;
+import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
-
-    Conexion cc = new Conexion();
-    Connection connection = cc.conectart();
 
     public Login() {
 
@@ -40,7 +32,7 @@ public class Login extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
+        jTextPaneUsuario = new javax.swing.JTextPane();
         jPasswordField1 = new javax.swing.JPasswordField();
         jLabel6 = new javax.swing.JLabel();
         jComboboxTipoDocumento = new javax.swing.JComboBox<>();
@@ -95,13 +87,13 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(45, 65, 115));
         jLabel2.setText("ACCEDER");
 
-        jTextPane1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jTextPane1.addVetoableChangeListener(new java.beans.VetoableChangeListener() {
+        jTextPaneUsuario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jTextPaneUsuario.addVetoableChangeListener(new java.beans.VetoableChangeListener() {
             public void vetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {
-                jTextPane1VetoableChange(evt);
+                jTextPaneUsuarioVetoableChange(evt);
             }
         });
-        jScrollPane1.setViewportView(jTextPane1);
+        jScrollPane1.setViewportView(jTextPaneUsuario);
 
         jPasswordField1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jPasswordField1.setMinimumSize(new java.awt.Dimension(64, 31));
@@ -158,8 +150,7 @@ public class Login extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(103, 103, 103)
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabel7))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,13 +165,11 @@ public class Login extends javax.swing.JFrame {
                                         .addComponent(jLabel2)
                                         .addGap(124, 124, 124)))))
                         .addContainerGap(90, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -221,12 +210,23 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-       
+       String TipoDocumento = jComboboxTipoDocumento.getSelectedItem().toString();
+       String Usuario = jTextPaneUsuario.getText();
+       String Contraseña = jPasswordField1.getText();
+       if(TipoDocumento.isEmpty() || Usuario.isEmpty() || Contraseña.isEmpty()){
+           JOptionPane.showMessageDialog(rootPane, "Todos los campos son obligatorios");
+       }else{
+           LoginController validlogin = new LoginController();
+           boolean res = validlogin.ValidarLogin(TipoDocumento,Usuario,Contraseña);
+           if(res){
+               this.dispose();
+           }
+       }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
-    private void jTextPane1VetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_jTextPane1VetoableChange
+    private void jTextPaneUsuarioVetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_jTextPaneUsuarioVetoableChange
 
-    }//GEN-LAST:event_jTextPane1VetoableChange
+    }//GEN-LAST:event_jTextPaneUsuarioVetoableChange
 
     private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
         // TODO add your handling code here:
@@ -285,7 +285,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     public javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
-    public javax.swing.JTextPane jTextPane1;
+    public javax.swing.JTextPane jTextPaneUsuario;
     // End of variables declaration//GEN-END:variables
 
     private void showError(String credenciales_inválidas) {
