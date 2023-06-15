@@ -5,6 +5,10 @@
 package Controller;
 
 import Modelo.Usuario;
+import com.sun.tools.javac.util.Convert;
+import java.util.ArrayList;
+import java.util.List;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,10 +17,12 @@ import javax.swing.JOptionPane;
  */
 public class AdminMedicoController {
     
+    static Usuario user = new Usuario();
+    
     public void ValidarAddUsuarioMedico(String TipoDocumento, String Documento, 
             String Nombre, String Contraseña, String Consultorio,int rol){
         try{
-            Usuario user = new Usuario();
+            
             user.TipoDocumento = TipoDocumento;
             user.Documento = Integer.parseInt(Documento);
             user.Nombre = Nombre;

@@ -247,6 +247,10 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
             }
         });
     }
+    
+    public void llenartabla(){
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnCrearMedico;
