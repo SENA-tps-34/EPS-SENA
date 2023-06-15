@@ -231,9 +231,9 @@ public class Admin_CrearPaciente extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(rootPane, "Todos los campos son obligatorios");
         }else {
             int rol = 3;
-            AdminMedicoController aduuser = new 
             
-    }
+            
+        }
         
         
         
