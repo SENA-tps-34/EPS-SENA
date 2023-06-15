@@ -1,8 +1,13 @@
 
 package Vistas;
 
+import Controller.AdminMedicoController;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
 
 public class Admin_AgregarMedicos extends javax.swing.JFrame {
 
@@ -34,7 +39,7 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableMedico = new javax.swing.JTable();
         btnCrearMedico = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -136,23 +141,15 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(45, 65, 115));
         jLabel5.setText("Agregar medicos");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableMedico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Tipo_Documento", "Identificacion", "Nombre", "Contraseña", "Consultorio"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
-        });
-        jScrollPane1.setViewportView(jTable1);
+        ));
+        jScrollPane1.setViewportView(jTableMedico);
 
         btnCrearMedico.setBackground(new java.awt.Color(45, 65, 115));
         btnCrearMedico.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
@@ -235,19 +232,16 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Admin_AgregarMedicos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        ResultSet ResultSet;
         //</editor-fold>
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Admin_AgregarMedicos().setVisible(true);
             }
         });
-    }
-    
-    public void llenartabla(){
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -263,6 +257,6 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableMedico;
     // End of variables declaration//GEN-END:variables
 }

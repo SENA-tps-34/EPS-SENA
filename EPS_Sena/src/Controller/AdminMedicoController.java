@@ -5,10 +5,11 @@
 package Controller;
 
 import Modelo.Usuario;
-import java.util.ArrayList;
-import java.util.List;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import Vistas.Admin_AgregarMedicos;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -21,7 +22,6 @@ public class AdminMedicoController {
     public void ValidarAddUsuarioMedico(String TipoDocumento, String Documento, 
             String Nombre, String Contraseña, String Consultorio,int rol){
         try{
-            
             user.TipoDocumento = TipoDocumento;
             user.Documento = Integer.parseInt(Documento);
             user.Nombre = Nombre;

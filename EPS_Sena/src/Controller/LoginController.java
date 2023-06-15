@@ -9,6 +9,7 @@ import Vistas.Login;
 import Vistas.PerfilAdmin;
 import Vistas.PerfilMedico;
 import Vistas.PerfilPaciente;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,19 +26,20 @@ public class LoginController {
             boolean consult = user.GetUsuarioById(Integer.parseInt(Usuario));
             if(consult){
                 String sql = "SELECT * FROM usuarios WHERE TipoDocumento='"+TipoDocumento+"' AND Identificacion="+Usuario+" AND Contraseña='"+Contraseña+"'";
-                String response = user.GetAllUsuario(sql);
-                if(response != null){
-                    if(response.equals("1")){
+                ResultSet response = user.GetAllUsuario(sql);
+                if(response.next()){
+                    String TipoUsuario = response.getString("IdRoles");
+                    if(TipoUsuario.equals("1")){
                         JOptionPane.showMessageDialog(null, "Bienvenido al sistema!!");
                         PerfilAdmin admin = new PerfilAdmin();
                         admin.setVisible(true);
                         respon = true;
-                    }else if(response.equals("2")){
+                    }else if(TipoUsuario.equals("2")){
                         JOptionPane.showMessageDialog(null, "Bienvenido al sistema!!");
                         PerfilMedico medico = new PerfilMedico();
                         medico.setVisible(true);
                         respon = true;
-                    }else if(response.equals("3")){
+                    }else if(TipoUsuario.equals("3")){
                         JOptionPane.showMessageDialog(null, "Bienvenido al sistema!!");
                         PerfilPaciente paciente = new PerfilPaciente();
                         paciente.setVisible(true);

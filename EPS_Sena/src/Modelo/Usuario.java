@@ -48,20 +48,18 @@ public class Usuario {
         return respon;
     }
   
-    public String GetAllUsuario(String sql){
-        String tipoUsuario = null;
+    public ResultSet GetAllUsuario(String sql){
+        ResultSet response = null;
         try{
             PreparedStatement stmt = connect.prepareStatement(sql);
-            ResultSet response = stmt.executeQuery();
+            response = stmt.executeQuery();
             if(response.next()){
-                tipoUsuario = response.getString("IdRoles");
-            }else{
-                tipoUsuario = null;
+                return response;    
             }
         }catch(SQLException e){
             e.printStackTrace();
         }
-        return tipoUsuario;
+        return response;
     }
      
     public boolean GetUsuarioById(int id){
