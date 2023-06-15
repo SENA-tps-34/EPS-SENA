@@ -8,6 +8,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.sql.Date;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -150,6 +151,8 @@ public class Admin_CrearPaciente extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
         jLabel10.setText("F_Nacimiento");
 
+        dateFNacimiento.setDateFormatString("yyyy-MM-dd");
+
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -247,19 +250,18 @@ public class Admin_CrearPaciente extends javax.swing.JFrame {
         String TipoDocumento = jComboboxTipoDocumento.getSelectedItem().toString();
         String Documento = txtnumeroDocumento.getText();
         String Nombre = txtNombre.getText();
-        Date Fecha = (Date) dateFNacimiento.getDate();
+        String Fecha = ((JTextField)dateFNacimiento.getDateEditor().getUiComponent()).getText();
         String Contraseña = txtContraseña.getText();
         String Sexo = txtSexo.getText();
-        if (TipoDocumento.isEmpty() || Documento.isEmpty() || Nombre.isEmpty() || Fecha== null || Contraseña.isEmpty() || Sexo.isEmpty()){
-        JOptionPane.showMessageDialog(rootPane, "Todos los campos son obligatorios");
+        
+        if (TipoDocumento.isEmpty() || Documento.isEmpty() || Nombre.isEmpty() || Fecha == null || Contraseña.isEmpty() || Sexo.isEmpty()){
+            JOptionPane.showMessageDialog(rootPane, "Todos los campos son obligatorios");
         }else {
             int rol = 3;
-            
-            
+            AdminPacienteController AddUserPaciente = new AdminPacienteController();
+            AddUserPaciente.ValidarAddUsuarioPaciente(TipoDocumento, Documento, Nombre, Date.valueOf(Fecha), Contraseña, Sexo, rol);
+            this.dispose();
         }
-        
-        
-        
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

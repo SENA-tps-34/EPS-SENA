@@ -30,9 +30,9 @@ public class AdminMedicoController {
             user.rol = rol;
             boolean response = user.AddUsuario();
             if(response){
-                JOptionPane.showMessageDialog(null, "Usuario insertado correctamente");
+                JOptionPane.showMessageDialog(null, "Medico insertado correctamente");
             }else{
-                JOptionPane.showMessageDialog(null, "Hubo un error al insertar al usuario");
+                JOptionPane.showMessageDialog(null, "Hubo un error al insertar al Medico");
             }
         }catch(Exception e){
             e.printStackTrace();
