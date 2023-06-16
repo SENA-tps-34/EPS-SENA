@@ -13,7 +13,7 @@ public class Conexion {
 
     // Nombre de usuario y contraseña para acceder a la base de datos
     public static final String USERNAME = "root";
-    public static final String PASSWORD = "";
+    public static final String PASSWORD = "1048066232";
 
     /**
      * Establece una conexión con la base de datos.

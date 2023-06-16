@@ -52,30 +52,25 @@ public class Usuario {
         ResultSet response = null;
         try{
             PreparedStatement stmt = connect.prepareStatement(sql);
-            response = stmt.executeQuery();
-            if(response.next()){
-                return response;    
-            }
+            response = stmt.executeQuery(sql);
+            return response;
         }catch(SQLException e){
             e.printStackTrace();
         }
         return response;
     }
      
-    public boolean GetUsuarioById(int id){
+    public ResultSet GetUsuarioById(int id){
+        ResultSet response = null;
         try{
             String sql = "SELECT * FROM usuarios WHERE Identificacion=?";
             PreparedStatement stmt = connect.prepareStatement(sql);
             stmt.setInt(1, id);
-            ResultSet response = stmt.executeQuery();
-            if(response.next()){
-                return true;
-            }else{
-                return false;
-            }
+            response = stmt.executeQuery();
+            return response;
         }catch(SQLException e){
             e.printStackTrace();    
-            return false;
         }
+        return response;
     }
 }

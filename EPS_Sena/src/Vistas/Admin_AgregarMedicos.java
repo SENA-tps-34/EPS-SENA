@@ -5,8 +5,6 @@ import Controller.AdminMedicoController;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 
 public class Admin_AgregarMedicos extends javax.swing.JFrame {
@@ -15,6 +13,7 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
         setIconImage(getIconImage());
+        listarMedicos();
     }
 // icono JFrame 
     @Override
@@ -71,7 +70,7 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         jLabel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -146,10 +145,30 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
 
             },
             new String [] {
-
+                "Tipo Documento", "Identificacion", "Nombre", "Consultorio", "Acciones"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableMedico.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jTableMedicoPropertyChange(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableMedico);
+        if (jTableMedico.getColumnModel().getColumnCount() > 0) {
+            jTableMedico.getColumnModel().getColumn(0).setResizable(false);
+            jTableMedico.getColumnModel().getColumn(1).setResizable(false);
+            jTableMedico.getColumnModel().getColumn(2).setResizable(false);
+            jTableMedico.getColumnModel().getColumn(3).setResizable(false);
+            jTableMedico.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         btnCrearMedico.setBackground(new java.awt.Color(45, 65, 115));
         btnCrearMedico.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
@@ -207,6 +226,10 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
        new Admin_CrearMedico().setVisible(true);
     }//GEN-LAST:event_btnCrearMedicoActionPerformed
 
+    private void jTableMedicoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTableMedicoPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTableMedicoPropertyChange
+
     /**
      * @param args the command line arguments
      */
@@ -243,6 +266,27 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
             }
         });
     }
+    
+    public static void listarMedicos(){
+        try{
+            AdminMedicoController admin = new AdminMedicoController();
+            ResultSet response = admin.ListarMedicos();
+            Object[] usuarios = new Object[4];
+            DefaultTableModel model = new DefaultTableModel();
+            model = (DefaultTableModel) jTableMedico.getModel();
+            while(response.next()){
+                usuarios[0] = response.getString("TipoDocumento");
+                usuarios[1] = response.getInt("Identificacion");
+                usuarios[2] = response.getString("Nombre");
+                usuarios[3] = response.getInt("Consultorio_Medico");
+                model.addRow(usuarios);
+            }
+            jTableMedico.setModel(model);
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnCrearMedico;
@@ -257,6 +301,6 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTableMedico;
+    public static javax.swing.JTable jTableMedico;
     // End of variables declaration//GEN-END:variables
 }

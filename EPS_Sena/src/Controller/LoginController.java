@@ -23,27 +23,33 @@ public class LoginController {
     public boolean ValidarLogin(String TipoDocumento,String Usuario,String Contraseña){
         boolean respon = false;
         try{
-            boolean consult = user.GetUsuarioById(Integer.parseInt(Usuario));
-            if(consult){
+            ResultSet consult = user.GetUsuarioById(Integer.parseInt(Usuario));
+            if(consult.next()){
                 String sql = "SELECT * FROM usuarios WHERE TipoDocumento='"+TipoDocumento+"' AND Identificacion="+Usuario+" AND Contraseña='"+Contraseña+"'";
                 ResultSet response = user.GetAllUsuario(sql);
                 if(response.next()){
                     String TipoUsuario = response.getString("IdRoles");
-                    if(TipoUsuario.equals("1")){
-                        JOptionPane.showMessageDialog(null, "Bienvenido al sistema!!");
-                        PerfilAdmin admin = new PerfilAdmin();
-                        admin.setVisible(true);
-                        respon = true;
-                    }else if(TipoUsuario.equals("2")){
-                        JOptionPane.showMessageDialog(null, "Bienvenido al sistema!!");
-                        PerfilMedico medico = new PerfilMedico();
-                        medico.setVisible(true);
-                        respon = true;
-                    }else if(TipoUsuario.equals("3")){
-                        JOptionPane.showMessageDialog(null, "Bienvenido al sistema!!");
-                        PerfilPaciente paciente = new PerfilPaciente();
-                        paciente.setVisible(true);
-                        respon = true;
+                    switch (TipoUsuario) {
+                        case "1":
+                            JOptionPane.showMessageDialog(null, "Bienvenido al sistema!!");
+                            PerfilAdmin admin = new PerfilAdmin();
+                            admin.setVisible(true);
+                            respon = true;
+                            break;
+                        case "2":
+                            JOptionPane.showMessageDialog(null, "Bienvenido al sistema!!");
+                            PerfilMedico medico = new PerfilMedico();
+                            medico.setVisible(true);
+                            respon = true;
+                            break;
+                        case "3":
+                            JOptionPane.showMessageDialog(null, "Bienvenido al sistema!!");
+                            PerfilPaciente paciente = new PerfilPaciente();
+                            paciente.setVisible(true);
+                            respon = true;
+                            break;
+                        default:
+                            break;
                     }
                 }else{
                     JOptionPane.showMessageDialog(null, "Credenciales invalidas");
