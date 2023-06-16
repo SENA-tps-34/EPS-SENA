@@ -140,7 +140,7 @@ public class Admin_CrearMedico extends javax.swing.JFrame {
 
         jTextFieldConsultorio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        jToggleButton3.setBackground(new java.awt.Color(224, 224, 24));
+        jToggleButton3.setBackground(new java.awt.Color(218, 234, 247));
         jToggleButton3.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
         jToggleButton3.setText("Cancelar");
         jToggleButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -149,7 +149,7 @@ public class Admin_CrearMedico extends javax.swing.JFrame {
             }
         });
 
-        jBtnInsert.setBackground(new java.awt.Color(0, 175, 0));
+        jBtnInsert.setBackground(new java.awt.Color(45, 65, 115));
         jBtnInsert.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
         jBtnInsert.setForeground(new java.awt.Color(255, 255, 255));
         jBtnInsert.setText("Crear");
@@ -191,9 +191,9 @@ public class Admin_CrearMedico extends javax.swing.JFrame {
                 .addGap(90, 90, 90))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jToggleButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(jBtnInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jToggleButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtnInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
