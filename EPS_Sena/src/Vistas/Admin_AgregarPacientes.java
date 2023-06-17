@@ -1,15 +1,23 @@
 
 package Vistas;
 
+import Class.RenderTable;
+import Controller.AdminPacienteController;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.sql.ResultSet;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 public class Admin_AgregarPacientes extends javax.swing.JFrame {
 
     public Admin_AgregarPacientes() {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
-            setIconImage(getIconImage());
+        setIconImage(getIconImage());
+        listarPacientes();
     }
 // icono JFrame 
     @Override
@@ -34,7 +42,7 @@ public class Admin_AgregarPacientes extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTablePacientes = new javax.swing.JTable();
         btnCrearPaciente = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -66,7 +74,7 @@ public class Admin_AgregarPacientes extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         jLabel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -113,7 +121,7 @@ public class Admin_AgregarPacientes extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
+                .addContainerGap(19, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnvolver)
@@ -134,23 +142,40 @@ public class Admin_AgregarPacientes extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(45, 65, 115));
         jLabel5.setText("Agregar Pacientes ");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTablePacientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "T_documento", "Identificacion", "Nombre", "F_nacimiento", "Sexo", "Contraseña"
+                "T_documento", "Identificacion", "Nombre", "F_nacimiento", "Sexo", "Modificar", "Eliminar"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jTablePacientes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTablePacientes.setUpdateSelectionOnSort(false);
+        jTablePacientes.setVerifyInputWhenFocusTarget(false);
+        jTablePacientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTablePacientesMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTablePacientes);
+        if (jTablePacientes.getColumnModel().getColumnCount() > 0) {
+            jTablePacientes.getColumnModel().getColumn(0).setResizable(false);
+            jTablePacientes.getColumnModel().getColumn(1).setResizable(false);
+            jTablePacientes.getColumnModel().getColumn(2).setResizable(false);
+            jTablePacientes.getColumnModel().getColumn(3).setResizable(false);
+            jTablePacientes.getColumnModel().getColumn(4).setResizable(false);
+            jTablePacientes.getColumnModel().getColumn(5).setResizable(false);
+            jTablePacientes.getColumnModel().getColumn(6).setResizable(false);
+        }
 
         btnCrearPaciente.setBackground(new java.awt.Color(45, 65, 115));
         btnCrearPaciente.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
@@ -207,6 +232,25 @@ public class Admin_AgregarPacientes extends javax.swing.JFrame {
          new Admin_CrearPaciente().setVisible(true);
     }//GEN-LAST:event_btnCrearPacienteActionPerformed
 
+    private void jTablePacientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablePacientesMouseClicked
+        int column = jTablePacientes.getColumnModel().getColumnIndexAtX(evt.getX());
+        int rows = evt.getY()/jTablePacientes.getRowHeight();
+        
+        if(rows < jTablePacientes.getRowCount() && rows >= 0 && column < jTablePacientes.getColumnCount() && column >= 0){
+            Object value = jTablePacientes.getValueAt(rows, column);
+            if(value instanceof JButton){
+                ((JButton)value).doClick();
+                JButton button = (JButton)value;
+                if(button.getName().equals("modificar")){
+                    JOptionPane.showMessageDialog(rootPane, "Agregar formulario");
+                }
+                if(button.getName().equals("eliminar")){
+                    JOptionPane.showMessageDialog(rootPane, "Agregar funcionamiento");
+                }
+            }
+        }
+    }//GEN-LAST:event_jTablePacientesMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -244,7 +288,41 @@ public class Admin_AgregarPacientes extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    public static void listarPacientes(){
+        JButton BtnModificar = new JButton("Modificar");
+        BtnModificar.setName("modificar");
+        JButton BtnEliminar = new JButton("Eliminar");
+        BtnEliminar.setName("eliminar");
+        try{
+            AdminPacienteController admin = new AdminPacienteController();
+            ResultSet response = admin.ListarPacientes();
+            Object[] usuarios = new Object[7];
+            DefaultTableModel model = new DefaultTableModel();
+            model = (DefaultTableModel) jTablePacientes.getModel();
+            while(response.next()){
+                usuarios[0] = response.getString("TipoDocumento");
+                usuarios[1] = response.getInt("Identificacion");
+                usuarios[2] = response.getString("Nombre");
+                usuarios[3] = response.getDate("Fecha_Nacimiento");
+                usuarios[4] = response.getString("Sexo");
+                usuarios[5] = BtnModificar;
+                usuarios[6] = BtnEliminar;
+                model.addRow(usuarios);
+            }
+            jTablePacientes.setDefaultRenderer(Object.class, new RenderTable());
+            jTablePacientes.setModel(model);
+            jTablePacientes.setRowHeight(40);
+            TableColumn columnModificar = jTablePacientes.getColumn("Modificar");
+            TableColumn columnEliminar = jTablePacientes.getColumn("Eliminar");
+            columnModificar.setPreferredWidth(50);
+            columnEliminar.setPreferredWidth(50);
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnCrearPaciente;
     private javax.swing.JButton btnvolver;
@@ -258,6 +336,6 @@ public class Admin_AgregarPacientes extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
+    public static javax.swing.JTable jTablePacientes;
     // End of variables declaration//GEN-END:variables
 }

@@ -2,25 +2,43 @@ package Controller;
 
 import Modelo.Usuario;
 import java.sql.Date;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
 public class AdminPacienteController {
+    static Usuario user = new Usuario();
+    
+    public ResultSet ListarPacientes(){
+        ResultSet response = null;
+        try{
+            String sql = "SELECT * FROM usuarios WHERE IdRoles=3";
+            response = user.GetAllUsuario(sql);
+            return response;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return response;
+    }
 
     public void ValidarAddUsuarioPaciente(String TipoDocumento, String Documento, String Nombre, Date Fecha, String Contraseña, String Sexo, int rol) {
         try {
-            Usuario user = new Usuario();
-            user.TipoDocumento = TipoDocumento;
-            user.Documento = Integer.parseInt(Documento);
-            user.Nombre = Nombre;
-            user.Fecha_Nacimiento = Fecha;
-            user.Contraseña = Contraseña;
-            user.Sexo = Sexo;
-            user.rol = rol;
-            boolean response = user.AddUsuario();
-            if (response) {
-                JOptionPane.showMessageDialog(null, "Paciente insertado correctamente");
-            } else {
-                JOptionPane.showMessageDialog(null, "Hubo un error al insertar el Paciente");
+            ResultSet consult = user.GetUsuarioById(Integer.parseInt(Documento));
+            if(!consult.next()){
+                user.TipoDocumento = TipoDocumento;
+                user.Documento = Integer.parseInt(Documento);
+                user.Nombre = Nombre;
+                user.Fecha_Nacimiento = Fecha;
+                user.Contraseña = Contraseña;
+                user.Sexo = Sexo;
+                user.rol = rol;
+                boolean response = user.AddUsuario();
+                if (response) {
+                    JOptionPane.showMessageDialog(null, "Paciente insertado correctamente");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Hubo un error al insertar el Paciente");
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "El numero de documento ya existe");
             }
         } catch (Exception e) {
             e.printStackTrace();
