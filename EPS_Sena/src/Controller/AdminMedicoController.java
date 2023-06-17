@@ -8,6 +8,7 @@ import Modelo.Usuario;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import Vistas.Admin_AgregarMedicos;
+import Vistas.Admin_CrearMedico;
 import java.util.ArrayList;
 import java.util.List;
 

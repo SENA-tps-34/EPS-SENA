@@ -262,13 +262,40 @@ public class Admin_CrearPaciente extends javax.swing.JFrame {
         if (TipoDocumento.isEmpty() || Documento.isEmpty() || Nombre.isEmpty() || Fecha == null || Contraseña.isEmpty() || Sexo.isEmpty()){
             JOptionPane.showMessageDialog(rootPane, "Todos los campos son obligatorios");
         }else {
-            int rol = 3;
-            AdminPacienteController AddUserPaciente = new AdminPacienteController();
-            AddUserPaciente.ValidarAddUsuarioPaciente(TipoDocumento, Documento, Nombre, Date.valueOf(Fecha), Contraseña, Sexo, rol);
-            this.dispose();
+            if("Seleccione".equals(TipoDocumento)){
+                JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un tipo de documento");
+            }else{
+                if(!solonumeros(txtnumeroDocumento.getText().trim())){
+                    JOptionPane.showMessageDialog(rootPane, "El numero de documento no puede contener letras");
+                }else{
+                    if(!sololetras(txtNombre.getText().trim())){
+                        JOptionPane.showMessageDialog(rootPane, "El nombre no puede contener numeros");
+                    }else{
+                        if(((JTextField)dateFNacimiento.getDateEditor().getUiComponent()).getText().isBlank()){
+                            JOptionPane.showMessageDialog(rootPane, "Debe seleccionar una fecha de nacimiento");
+                        }else{
+                            if("Seleccione".equals(Sexo)){
+                                JOptionPane.showMessageDialog(rootPane, "Debe seleccionar el sexo");
+                            }else{
+                                int rol = 3;
+                                AdminPacienteController AddUserPaciente = new AdminPacienteController();
+                                AddUserPaciente.ValidarAddUsuarioPaciente(TipoDocumento, Documento, Nombre, Date.valueOf(Fecha), Contraseña, Sexo, rol);
+                                this.dispose();
+                            }
+                        }
+                    }
+                }
+            }
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+    public static boolean solonumeros(String datos){
+        return datos.matches("[0-9]*");
+    }
+    public static boolean sololetras(String datos){
+        return datos.matches("[a-ñ-zA-Z]*");
+    }
+    
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed

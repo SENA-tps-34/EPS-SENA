@@ -222,14 +222,26 @@ public class Login extends javax.swing.JFrame {
        if(TipoDocumento.isEmpty() || Usuario.isEmpty() || Contraseña.isEmpty()){
            JOptionPane.showMessageDialog(rootPane, "Todos los campos son obligatorios");
        }else{
-           LoginController validlogin = new LoginController();
-           boolean res = validlogin.ValidarLogin(TipoDocumento,Usuario,Contraseña);
-           if(res){
-               this.dispose();
+           if("Seleccione".equals(TipoDocumento)){
+               JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un tipo de documento");
+           }else{
+                if(!solonumeros(jTextPaneUsuario.getText().trim())){
+                    JOptionPane.showMessageDialog(rootPane, "El Numero de documento no puede tener letras");
+                }else{
+                    LoginController validlogin = new LoginController();
+                    boolean res = validlogin.ValidarLogin(TipoDocumento,Usuario,Contraseña);
+                    if(res){
+                        this.dispose();
+                    }
+                }
            }
        }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
+    public static boolean solonumeros(String datos){
+        return datos.matches("[0-9]*");
+    }
+    
     private void jTextPaneUsuarioVetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_jTextPaneUsuarioVetoableChange
 
     }//GEN-LAST:event_jTextPaneUsuarioVetoableChange

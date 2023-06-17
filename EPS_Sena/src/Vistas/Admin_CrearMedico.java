@@ -241,13 +241,37 @@ public class Admin_CrearMedico extends javax.swing.JFrame {
         if(TipoDocumento.isEmpty() || Documento.isEmpty() || Nombre.isEmpty() || Contraseña.isEmpty() || Consultorio.isEmpty()){
             JOptionPane.showMessageDialog(rootPane, "Todos los campos son obligatorios");
         }else{
-            int rol = 2;
-            AdminMedicoController adduser = new AdminMedicoController();
-            adduser.ValidarAddUsuarioMedico(TipoDocumento, Documento, Nombre, Contraseña, Consultorio,rol);
-            this.dispose();
+            if("Seleccione".equals(TipoDocumento)){
+                JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un tipo de documento");
+            }else{
+                if(!solonumeros(jTextFieldDocumento.getText().trim())){
+                    JOptionPane.showMessageDialog(rootPane, "El numero de documento no puede contener letras");
+                }else{
+                    if(!sololetras(jTextFieldNombre.getText().trim())){
+                        JOptionPane.showMessageDialog(rootPane, "El nombre no puede contener numeros");
+                    }else{
+                        if(!solonumeros(jTextFieldConsultorio.getText().trim())){
+                            JOptionPane.showMessageDialog(rootPane, "El consultorio no puede contener letras");
+                        }else{
+                            int rol = 2;
+                            AdminMedicoController adduser = new AdminMedicoController();
+                            adduser.ValidarAddUsuarioMedico(TipoDocumento, Documento, Nombre, Contraseña, Consultorio,rol);
+                            this.dispose();
+                        }
+                    }
+                }
+            }
+
         }
     }//GEN-LAST:event_jBtnInsertActionPerformed
 
+    public static boolean solonumeros(String datos){
+        return datos.matches("[0-9]*");
+    }
+    public static boolean sololetras(String datos){
+        return datos.matches("[a-ñ-zA-Z]*");
+    }
+    
     private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformed
         // TODO add your handling code here:
         this.dispose();
