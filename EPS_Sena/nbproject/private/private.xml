@@ -3,19 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/lauraTPS-34/EPS-SENA/EPS_Sena/src/Controller/LoginController.java</file>
+            <file>file:/D:/lauraTPS-34/EPS-SENA/EPS_Sena/src/Vistas/PerfilAdmin.java</file>
             <file>file:/D:/lauraTPS-34/EPS-SENA/EPS_Sena/src/Vistas/Admin_AgregarMedicos.java</file>
-            <file>file:/D:/lauraTPS-34/EPS-SENA/EPS_Sena/src/Vistas/Paciente_CitasProgramadas.java</file>
             <file>file:/D:/lauraTPS-34/EPS-SENA/EPS_Sena/src/Vistas/Admin_CrearMedico.java</file>
-            <file>file:/D:/lauraTPS-34/EPS-SENA/EPS_Sena/src/Vistas/Login.java</file>
             <file>file:/D:/lauraTPS-34/EPS-SENA/EPS_Sena/src/Vistas/Paciente_Citas.java</file>
-            <file>file:/D:/lauraTPS-34/EPS-SENA/EPS_Sena/src/Vistas/Paciente_SolicitarCita.java</file>
-            <file>file:/D:/lauraTPS-34/EPS-SENA/EPS_Sena/src/Vistas/Admin_AgregarPacientes.java</file>
-            <file>file:/D:/lauraTPS-34/EPS-SENA/EPS_Sena/src/Vistas/Medico_CitasProgramadas.java</file>
-            <file>file:/D:/lauraTPS-34/EPS-SENA/EPS_Sena/src/Vistas/Paciente_Medicamentos.java</file>
-            <file>file:/D:/lauraTPS-34/EPS-SENA/EPS_Sena/src/Vistas/Medico_Medicamentos.java</file>
+            <file>file:/D:/lauraTPS-34/EPS-SENA/EPS_Sena/src/Vistas/Admin_ModificarPaciente.java</file>
+            <file>file:/D:/lauraTPS-34/EPS-SENA/EPS_Sena/src/Vistas/Admin_Medicamentos.java</file>
             <file>file:/D:/lauraTPS-34/EPS-SENA/EPS_Sena/src/Vistas/Admin_CrearPaciente.java</file>
             <file>file:/D:/lauraTPS-34/EPS-SENA/EPS_Sena/src/Vistas/PerfilPaciente.java</file>
+            <file>file:/D:/lauraTPS-34/EPS-SENA/EPS_Sena/src/Vistas/Admin_ModificarMedico.java</file>
+            <file>file:/D:/lauraTPS-34/EPS-SENA/EPS_Sena/src/Vistas/Admin_AgregarPacientes.java</file>
         </group>
     </open-files>
 </project-private>

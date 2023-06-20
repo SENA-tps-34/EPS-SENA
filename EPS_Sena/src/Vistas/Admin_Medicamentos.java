@@ -3,6 +3,8 @@ package Vistas;
 
 import java.awt.Image;
 import java.awt.Toolkit;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 public class Admin_Medicamentos extends javax.swing.JFrame {
 
@@ -33,6 +35,8 @@ public class Admin_Medicamentos extends javax.swing.JFrame {
         btnvolver = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableMedicamentos = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
@@ -80,7 +84,7 @@ public class Admin_Medicamentos extends javax.swing.JFrame {
         btnvolver.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
         btnvolver.setText("atras");
         btnvolver.setToolTipText("");
-        btnvolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnvolver.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnvolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnvolverActionPerformed(evt);
@@ -96,7 +100,7 @@ public class Admin_Medicamentos extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(76, 76, 76)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 688, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 645, Short.MAX_VALUE)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -105,7 +109,7 @@ public class Admin_Medicamentos extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jLabel4)
                 .addGap(14, 14, 14))
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1062, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1019, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,16 +137,32 @@ public class Admin_Medicamentos extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(45, 65, 115));
         jLabel5.setText("Ingreso de medicamentos ");
 
+        jTableMedicamentos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Medicamento", "Descripcion", "Modificar", "Eliminar"
+            }
+        ));
+        jTableMedicamentos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableMedicamentosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTableMedicamentos);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1062, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1019, Short.MAX_VALUE)
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane1)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,7 +172,8 @@ public class Admin_Medicamentos extends javax.swing.JFrame {
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 346, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);
@@ -164,6 +185,25 @@ public class Admin_Medicamentos extends javax.swing.JFrame {
         new PerfilAdmin().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnvolverActionPerformed
+
+    private void jTableMedicamentosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMedicamentosMouseClicked
+       int column = jTableMedicamentos.getColumnModel().getColumnIndexAtX(evt.getX());
+        int rows = evt.getY()/jTableMedicamentos.getRowHeight();
+        if(rows < jTableMedicamentos.getRowCount() && rows >= 0 && column < jTableMedicamentos.getColumnCount() && column >= 0){
+            Object value = jTableMedicamentos.getValueAt(rows, column);
+            if(value instanceof JButton){
+                ((JButton)value).doClick();
+                JButton button = (JButton)value;
+                if(button.getName().equals("modificar")){
+                   JOptionPane.showMessageDialog(rootPane, "Agregar formulario");
+                }
+                if(button.getName().equals("eliminar")){
+                    JOptionPane.showMessageDialog(rootPane, "Agregar funcionamiento");
+                }
+            }
+        }
+                                           
+    }//GEN-LAST:event_jTableMedicamentosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -211,6 +251,8 @@ public class Admin_Medicamentos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTable jTableMedicamentos;
     // End of variables declaration//GEN-END:variables
 }

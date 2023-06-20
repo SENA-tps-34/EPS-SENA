@@ -242,7 +242,7 @@ public class Admin_AgregarPacientes extends javax.swing.JFrame {
                 ((JButton)value).doClick();
                 JButton button = (JButton)value;
                 if(button.getName().equals("modificar")){
-                    JOptionPane.showMessageDialog(rootPane, "Agregar formulario");
+                  new Admin_ModificarPaciente().setVisible(true);
                 }
                 if(button.getName().equals("eliminar")){
                     JOptionPane.showMessageDialog(rootPane, "Agregar funcionamiento");

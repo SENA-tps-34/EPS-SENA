@@ -74,7 +74,7 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         jLabel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -218,8 +218,7 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCrearMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);
@@ -250,7 +249,7 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
                 ((JButton)value).doClick();
                 JButton button = (JButton)value;
                 if(button.getName().equals("modificar")){
-                    JOptionPane.showMessageDialog(rootPane, "Agregar formulario");
+                   new Admin_ModificarMedico().setVisible(true);
                 }
                 if(button.getName().equals("eliminar")){
                     JOptionPane.showMessageDialog(rootPane, "Agregar funcionamiento");
