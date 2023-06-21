@@ -24,7 +24,6 @@ public class Usuario {
     public boolean AddUsuario(){
         boolean respon = false;
         try{
-            
             String sql = "INSERT INTO usuarios(TipoDocumento,Identificacion,Nombre,Fecha_Nacimiento,Sexo,Contraseña,Consultorio_Medico,IdRoles) VALUES (?,?,?,?,?,?,?,?)";
             PreparedStatement stmt = connect.prepareStatement(sql);
             stmt.setString(1, TipoDocumento);
@@ -48,6 +47,25 @@ public class Usuario {
         return respon;
     }
   
+    public boolean DeleteUsuario(){
+        boolean respon = false;
+        try{
+            String sql = "DELETE FROM usuarios WHERE Identificacion = ?";
+            PreparedStatement stmt = connect.prepareStatement(sql);
+            stmt.setInt(1, Documento);
+            int response = stmt.executeUpdate();
+            if(response > 0){
+                respon = true;
+            }else{
+                respon = false;
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+            respon = false;
+        }
+        return respon;
+    }
+    
     public ResultSet GetAllUsuario(String sql){
         ResultSet response = null;
         try{

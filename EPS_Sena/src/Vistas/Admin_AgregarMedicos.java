@@ -74,7 +74,7 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         jLabel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -249,10 +249,28 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
                 ((JButton)value).doClick();
                 JButton button = (JButton)value;
                 if(button.getName().equals("modificar")){
-                   new Admin_ModificarMedico().setVisible(true);
+                    int data = jTableMedico.getSelectedRow();
+                    String TipoDocumento = (String)jTableMedico.getValueAt(data, 0);
+                    int Documento = (int)jTableMedico.getValueAt(data, 1);
+                    String Nombre = (String)jTableMedico.getValueAt(data, 2);
+                    Admin_ModificarMedico modificar = new Admin_ModificarMedico();
+                    modificar.listarmedicos(TipoDocumento, String.valueOf(Documento), Nombre);
+                    modificar.setVisible(true);
                 }
                 if(button.getName().equals("eliminar")){
-                    JOptionPane.showMessageDialog(rootPane, "Agregar funcionamiento");
+                    int data = jTableMedico.getSelectedRow();
+                    int Document = (int)jTableMedico.getValueAt(data, 1);
+                    int option = JOptionPane.showConfirmDialog(rootPane, "¿Esta seguro de querer eliminar este registro?");
+                    
+                    if(option == JOptionPane.YES_OPTION){
+                        if(Document > 0){
+                            AdminMedicoController admin = new AdminMedicoController();
+                            admin.ValidarDeleteUsuarioMedico(Document);
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(rootPane, "Registro no eliminado");
+                    }
+                    
                 }
             }
         }
@@ -322,6 +340,7 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
             TableColumn columnEliminar = jTableMedico.getColumn("Eliminar");
             columnModificar.setPreferredWidth(50);
             columnEliminar.setPreferredWidth(50);
+            
             
         }catch(Exception e){
             e.printStackTrace();

@@ -7,39 +7,35 @@ package Controller;
 import Modelo.Usuario;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
-import Vistas.Admin_AgregarMedicos;
-import Vistas.Admin_CrearMedico;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
  * @author ADSI
  */
 public class AdminMedicoController {
-    
+
     static Usuario user = new Usuario();
-    
-    public ResultSet ListarMedicos(){
+
+    public ResultSet ListarMedicos() {
         ResultSet response = null;
-        try{
+        try {
             String sql = "SELECT * FROM usuarios WHERE IdRoles=2";
             response = user.GetAllUsuario(sql);
             return response;
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return response;
     }
-    
-    public void ValidarAddUsuarioMedico(String TipoDocumento, String Documento, 
-            String Nombre, String Contraseña, String Consultorio,int rol){
-        try{
+
+    public void ValidarAddUsuarioMedico(String TipoDocumento, String Documento,
+            String Nombre, String Contraseña, String Consultorio, int rol) {
+        try {
             ResultSet consult = user.GetUsuarioById(Integer.parseInt(Documento));
-            if(!consult.next()){
-                String sql = "SELECT * FROM usuarios WHERE Consultorio_Medico="+Consultorio;
+            if (!consult.next()) {
+                String sql = "SELECT * FROM usuarios WHERE Consultorio_Medico=" + Consultorio;
                 ResultSet response = user.GetAllUsuario(sql);
-                if(!response.next()){
+                if (!response.next()) {
                     user.TipoDocumento = TipoDocumento;
                     user.Documento = Integer.parseInt(Documento);
                     user.Nombre = Nombre;
@@ -47,18 +43,32 @@ public class AdminMedicoController {
                     user.Consultorio = Consultorio;
                     user.rol = rol;
                     boolean respon = user.AddUsuario();
-                    if(respon){
+                    if (respon) {
                         JOptionPane.showMessageDialog(null, "Medico insertado correctamente");
-                    }else{
+                    } else {
                         JOptionPane.showMessageDialog(null, "Hubo un error al insertar al Medico");
                     }
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(null, "El consultorio esta ocupado");
                 }
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "El numero de documento ya existe");
             }
-        }catch(Exception e){
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void ValidarDeleteUsuarioMedico(int Documento) {
+        try {
+            user.Documento = Documento;
+            boolean respon = user.DeleteUsuario();
+            if (respon) {
+                JOptionPane.showMessageDialog(null, "Medico eliminado correctamente");
+            } else {
+                JOptionPane.showMessageDialog(null, "Hubo un error al eliminar al Medico");
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

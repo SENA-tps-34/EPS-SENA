@@ -233,6 +233,12 @@ public class Admin_ModificarMedico extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldDocumentoActionPerformed
 
+    public void listarmedicos(String TipoDocumento,String Documento, String Nombre){
+        
+        jTextFieldDocumento.setText(Documento);
+        jTextFieldNombre.setText(Nombre);
+    }
+    
     private void jBtnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnInsertActionPerformed
         String TipoDocumento = jComboboxTipoDocumento.getSelectedItem().toString();
         String Documento = jTextFieldDocumento.getText();
