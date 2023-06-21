@@ -74,7 +74,7 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         jLabel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -204,7 +204,7 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(btnCrearMedico)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(957, 957, Short.MAX_VALUE))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel1Layout.setVerticalGroup(
@@ -253,8 +253,9 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
                     String TipoDocumento = (String)jTableMedico.getValueAt(data, 0);
                     int Documento = (int)jTableMedico.getValueAt(data, 1);
                     String Nombre = (String)jTableMedico.getValueAt(data, 2);
+                    int Consultorio = (int)jTableMedico.getValueAt(data, 3);
                     Admin_ModificarMedico modificar = new Admin_ModificarMedico();
-                    modificar.listarmedicos(TipoDocumento, String.valueOf(Documento), Nombre);
+                    modificar.listarmedicos(TipoDocumento, String.valueOf(Documento), Nombre, String.valueOf(Consultorio));
                     modificar.setVisible(true);
                 }
                 if(button.getName().equals("eliminar")){
@@ -276,6 +277,7 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTableMedicoMouseClicked
 
+    
     /**
      * @param args the command line arguments
      */

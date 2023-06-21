@@ -7,6 +7,7 @@ package Controller;
 import Modelo.Usuario;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -53,6 +54,84 @@ public class AdminMedicoController {
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "El numero de documento ya existe");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void ValidarUpdateUsuarioMedico(String TipoDocumento, String Documento,
+            String Nombre, String Contraseña, String Consultorio, int rol) {
+        try {
+            ResultSet consult = user.GetUsuarioById(Integer.parseInt(Documento));
+            if (consult.next()) {
+                String sql = "SELECT * FROM usuarios WHERE Consultorio_Medico=" + Consultorio;
+                ResultSet response = user.GetAllUsuario(sql);
+                if (!response.next()) {
+                    if (Contraseña.isEmpty()) {
+                        user.TipoDocumento = TipoDocumento;
+                        user.Documento = Integer.parseInt(Documento);
+                        user.Nombre = Nombre;
+                        user.Consultorio = Consultorio;
+                        user.rol = rol;
+                        boolean respon = user.UpdateUsuario();
+                        if (respon) {
+                            JOptionPane.showMessageDialog(null, "Medico actualizado correctamente");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Hubo un error al actualizar al Medico");
+                        }
+                    }
+                    else {
+                        user.TipoDocumento = TipoDocumento;
+                        user.Documento = Integer.parseInt(Documento);
+                        user.Nombre = Nombre;
+                        user.Contraseña = Contraseña;
+                        user.Consultorio = Consultorio;
+                        user.rol = rol;
+                        boolean respon = user.UpdateUsuario();
+                        if (respon) {
+                            JOptionPane.showMessageDialog(null, "Medico actualizado correctamente");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Hubo un error al actualizar al Medico");
+                        }
+                    }
+                } else {
+                    String data = response.getString("Identificacion");
+                    if (Documento.equals(data)) {
+                        if (Contraseña.isEmpty()) {
+                            user.TipoDocumento = TipoDocumento;
+                            user.Documento = Integer.parseInt(Documento);
+                            user.Nombre = Nombre;
+                            user.Consultorio = Consultorio;
+                            user.rol = rol;
+                            boolean respon = user.UpdateUsuario();
+                            if (respon) {
+                                JOptionPane.showMessageDialog(null, "Medico actualizado correctamente");
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Hubo un error al actualizar al Medico revisar modelo");
+                            }
+                        } else {
+                            user.TipoDocumento = TipoDocumento;
+                            user.Documento = Integer.parseInt(Documento);
+                            user.Nombre = Nombre;
+                            user.Contraseña = Contraseña;
+                            user.Consultorio = Consultorio;
+                            user.rol = rol;
+                            boolean respon = user.UpdateUsuario();
+                            if (respon) {
+                                JOptionPane.showMessageDialog(null, "Medico actualizado correctamente");
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Hubo un error al actualizar al Medico");
+                            }
+                        }
+                    }
+//                    else{
+//                        JOptionPane.showMessageDialog(null, "El consultorio ya esta ocupado");
+//                    }
+                }
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "El numero de documento no existe");
             }
         } catch (Exception e) {
             e.printStackTrace();
