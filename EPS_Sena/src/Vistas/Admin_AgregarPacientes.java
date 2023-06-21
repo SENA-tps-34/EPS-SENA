@@ -5,6 +5,7 @@ import Class.RenderTable;
 import Controller.AdminPacienteController;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.sql.Date;
 import java.sql.ResultSet;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -242,10 +243,29 @@ public class Admin_AgregarPacientes extends javax.swing.JFrame {
                 ((JButton)value).doClick();
                 JButton button = (JButton)value;
                 if(button.getName().equals("modificar")){
-                  new Admin_ModificarPaciente().setVisible(true);
+                    int data = jTablePacientes.getSelectedRow();
+                    String TipoDocumento = (String)jTablePacientes.getValueAt(data, 0);
+                    int Documento = (int)jTablePacientes.getValueAt(data, 1);
+                    String Nombre = (String)jTablePacientes.getValueAt(data, 2);
+                    Date Fecha = (Date)jTablePacientes.getValueAt(data, 3);
+                    String Sexo = (String)jTablePacientes.getValueAt(data, 4);
+                    Admin_ModificarPaciente modificar = new Admin_ModificarPaciente();
+                    modificar.listarPacientes(TipoDocumento, String.valueOf(Documento), Nombre, String.valueOf(Fecha), Sexo);
+                    modificar.setVisible(true);
                 }
                 if(button.getName().equals("eliminar")){
-                    JOptionPane.showMessageDialog(rootPane, "Agregar funcionamiento");
+                    int data = jTablePacientes.getSelectedRow();
+                    int Document = (int)jTablePacientes.getValueAt(data, 1);
+                    int option = JOptionPane.showConfirmDialog(rootPane, "¿Esta seguro de querer eliminar este registro?"); 
+                    
+                    if(option == JOptionPane.YES_OPTION){
+                        if(Document > 0){
+                            AdminPacienteController admin = new AdminPacienteController();
+                            admin.ValidarDeleteUsuarioPaciente(Document);
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(rootPane, "Registro no eliminado");
+                    }
                 }
             }
         }

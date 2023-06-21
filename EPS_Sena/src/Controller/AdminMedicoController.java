@@ -5,6 +5,7 @@
 package Controller;
 
 import Modelo.Usuario;
+import Vistas.Admin_AgregarMedicos;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -125,13 +126,13 @@ public class AdminMedicoController {
                             }
                         }
                     }
-//                    else{
-//                        JOptionPane.showMessageDialog(null, "El consultorio ya esta ocupado");
-//                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "El consultorio ya esta ocupado");
+                    }
                 }
                 
             } else {
-                JOptionPane.showMessageDialog(null, "El numero de documento no existe");
+                JOptionPane.showMessageDialog(null, "El numero de documento no fue encontrado");
             }
         } catch (Exception e) {
             e.printStackTrace();
