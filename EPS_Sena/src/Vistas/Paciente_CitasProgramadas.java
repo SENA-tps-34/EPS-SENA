@@ -181,7 +181,7 @@ public class Paciente_CitasProgramadas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnvolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnvolverActionPerformed
-        new PerfilPaciente().setVisible(true);
+        new Paciente_Citas().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnvolverActionPerformed
 

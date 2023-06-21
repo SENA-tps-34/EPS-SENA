@@ -36,6 +36,9 @@ public class Medico_Medicamentos extends javax.swing.JFrame {
         btnvolver = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButtonAsignarMedicamentos = new javax.swing.JButton();
 
         jLabel5.setText("jLabel5");
 
@@ -83,7 +86,7 @@ public class Medico_Medicamentos extends javax.swing.JFrame {
         btnvolver.setFont(new java.awt.Font("Rockwell", 0, 12)); // NOI18N
         btnvolver.setText("atras");
         btnvolver.setToolTipText("");
-        btnvolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnvolver.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnvolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnvolverActionPerformed(evt);
@@ -138,16 +141,52 @@ public class Medico_Medicamentos extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(45, 65, 115));
         jLabel3.setText("Asignacion de Medicamentos");
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Medicamento", "Paciente ", "Fecha Asignacion", "Fecha Inicio", "Fecha Fin", "Observacion"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        jButtonAsignarMedicamentos.setBackground(new java.awt.Color(45, 65, 115));
+        jButtonAsignarMedicamentos.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
+        jButtonAsignarMedicamentos.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonAsignarMedicamentos.setText("Asignar");
+        jButtonAsignarMedicamentos.setMaximumSize(new java.awt.Dimension(146, 28));
+        jButtonAsignarMedicamentos.setMinimumSize(new java.awt.Dimension(146, 28));
+        jButtonAsignarMedicamentos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAsignarMedicamentosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jLabel3)
-                .addContainerGap(653, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jSeparator1)
+            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1053, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jButtonAsignarMedicamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,9 +194,12 @@ public class Medico_Medicamentos extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(59, 59, 59)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(317, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(jButtonAsignarMedicamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);
@@ -169,6 +211,10 @@ public class Medico_Medicamentos extends javax.swing.JFrame {
         new PerfilMedico().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnvolverActionPerformed
+
+    private void jButtonAsignarMedicamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAsignarMedicamentosActionPerformed
+        new Medico_AsignacionMedicamentos().setVisible(true);
+    }//GEN-LAST:event_jButtonAsignarMedicamentosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -210,6 +256,7 @@ public class Medico_Medicamentos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnvolver;
+    private javax.swing.JButton jButtonAsignarMedicamentos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -219,6 +266,8 @@ public class Medico_Medicamentos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
