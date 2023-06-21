@@ -233,14 +233,21 @@ public class Admin_ModificarMedico extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldDocumentoActionPerformed
 
+    public void listarmedicos(String TipoDocumento,String Documento, String Nombre, String Consultorio){
+        jComboboxTipoDocumento.setSelectedItem(TipoDocumento);
+        jTextFieldDocumento.setText(Documento);
+        jTextFieldNombre.setText(Nombre);
+        jTextFieldConsultorio.setText(Consultorio);
+    }
+    
     private void jBtnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnInsertActionPerformed
         String TipoDocumento = jComboboxTipoDocumento.getSelectedItem().toString();
         String Documento = jTextFieldDocumento.getText();
         String Nombre = jTextFieldNombre.getText();
         String Contraseña = jPasswordField.getText();
         String Consultorio = jTextFieldConsultorio.getText();
-        if(TipoDocumento.isEmpty() || Documento.isEmpty() || Nombre.isEmpty() || Contraseña.isEmpty() || Consultorio.isEmpty()){
-            JOptionPane.showMessageDialog(rootPane, "Todos los campos son obligatorios");
+        if(TipoDocumento.isEmpty() || Documento.isEmpty() || Nombre.isEmpty() || Consultorio.isEmpty()){
+            JOptionPane.showMessageDialog(rootPane, "Algun campo obligatorio esta vacio");
         }else{
             if("Seleccione".equals(TipoDocumento)){
                 JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un tipo de documento");
@@ -255,8 +262,8 @@ public class Admin_ModificarMedico extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(rootPane, "El consultorio no puede contener letras");
                         }else{
                             int rol = 2;
-                            AdminMedicoController adduser = new AdminMedicoController();
-                            adduser.ValidarAddUsuarioMedico(TipoDocumento, Documento, Nombre, Contraseña, Consultorio,rol);
+                            AdminMedicoController updateuser = new AdminMedicoController();
+                            updateuser.ValidarUpdateUsuarioMedico(TipoDocumento, Documento, Nombre, Contraseña, Consultorio,rol);
                             this.dispose();
                         }
                     }

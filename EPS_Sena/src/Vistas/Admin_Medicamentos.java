@@ -37,6 +37,7 @@ public class Admin_Medicamentos extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableMedicamentos = new javax.swing.JTable();
+        btnCrearMedico = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
@@ -67,7 +68,7 @@ public class Admin_Medicamentos extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         jLabel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -142,27 +143,57 @@ public class Admin_Medicamentos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Medicamento", "Descripcion", "Modificar", "Eliminar"
+                "ID", "Medicamento", "Descripcion", "Modificar", "Eliminar"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTableMedicamentos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableMedicamentosMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jTableMedicamentos);
+        if (jTableMedicamentos.getColumnModel().getColumnCount() > 0) {
+            jTableMedicamentos.getColumnModel().getColumn(0).setResizable(false);
+            jTableMedicamentos.getColumnModel().getColumn(1).setResizable(false);
+            jTableMedicamentos.getColumnModel().getColumn(2).setResizable(false);
+            jTableMedicamentos.getColumnModel().getColumn(3).setResizable(false);
+            jTableMedicamentos.getColumnModel().getColumn(4).setResizable(false);
+        }
+
+        btnCrearMedico.setBackground(new java.awt.Color(45, 65, 115));
+        btnCrearMedico.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
+        btnCrearMedico.setForeground(new java.awt.Color(255, 255, 255));
+        btnCrearMedico.setText("Crear Medico");
+        btnCrearMedico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearMedicoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1019, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1019, Short.MAX_VALUE)
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(btnCrearMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane1)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,9 +202,11 @@ public class Admin_Medicamentos extends javax.swing.JFrame {
                 .addGap(42, 42, 42)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE))
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(btnCrearMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);
@@ -204,6 +237,10 @@ public class Admin_Medicamentos extends javax.swing.JFrame {
         }
                                            
     }//GEN-LAST:event_jTableMedicamentosMouseClicked
+
+    private void btnCrearMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearMedicoActionPerformed
+        new Admin_CrearMedico().setVisible(true);
+    }//GEN-LAST:event_btnCrearMedicoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -242,6 +279,7 @@ public class Admin_Medicamentos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton btnCrearMedico;
     private javax.swing.JButton btnvolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
