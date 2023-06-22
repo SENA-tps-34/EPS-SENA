@@ -12,14 +12,12 @@ import javax.swing.JOptionPane;
 
 public class Paciente_SolicitarCita extends javax.swing.JFrame {
     static AdminMedicoController admin = new AdminMedicoController();
-    static ResultSet response = admin.ListarMedicos();
 
     public Paciente_SolicitarCita() {
         initComponents();
         setResizable(false);
         this.setLocationRelativeTo(null);
         setIconImage(getIconImage());
-        llenarCombobox();
     }
     // icono JFrame
 
@@ -175,16 +173,6 @@ public class Paciente_SolicitarCita extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
 
     }// GEN-LAST:event_jButton1ActionPerformed
-
-    public void llenarCombobox() {
-        try {
-            while (response.next()) {
-                jComboBoxMedicos.addItem(response.getString("Nombre"));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * @param args the command line arguments

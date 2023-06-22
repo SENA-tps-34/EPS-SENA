@@ -8,6 +8,7 @@ import Modelo.Usuario;
 import Vistas.Admin_AgregarMedicos;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -42,7 +43,7 @@ public class AdminMedicoController {
                     user.Documento = Integer.parseInt(Documento);
                     user.Nombre = Nombre;
                     user.Contraseña = Contraseña;
-                    user.Consultorio = Consultorio;
+                    user.Consultorio = Integer.parseInt(Consultorio);
                     user.rol = rol;
                     boolean respon = user.AddUsuario();
                     if (respon) {
@@ -73,7 +74,7 @@ public class AdminMedicoController {
                         user.TipoDocumento = TipoDocumento;
                         user.Documento = Integer.parseInt(Documento);
                         user.Nombre = Nombre;
-                        user.Consultorio = Consultorio;
+                        user.Consultorio = Integer.parseInt(Consultorio);
                         user.rol = rol;
                         boolean respon = user.UpdateUsuario();
                         if (respon) {
@@ -81,13 +82,12 @@ public class AdminMedicoController {
                         } else {
                             JOptionPane.showMessageDialog(null, "Hubo un error al actualizar al Medico");
                         }
-                    }
-                    else {
+                    } else {
                         user.TipoDocumento = TipoDocumento;
                         user.Documento = Integer.parseInt(Documento);
                         user.Nombre = Nombre;
                         user.Contraseña = Contraseña;
-                        user.Consultorio = Consultorio;
+                        user.Consultorio = Integer.parseInt(Consultorio);
                         user.rol = rol;
                         boolean respon = user.UpdateUsuario();
                         if (respon) {
@@ -103,7 +103,7 @@ public class AdminMedicoController {
                             user.TipoDocumento = TipoDocumento;
                             user.Documento = Integer.parseInt(Documento);
                             user.Nombre = Nombre;
-                            user.Consultorio = Consultorio;
+                            user.Consultorio = Integer.parseInt(Consultorio);
                             user.rol = rol;
                             boolean respon = user.UpdateUsuario();
                             if (respon) {
@@ -116,7 +116,7 @@ public class AdminMedicoController {
                             user.Documento = Integer.parseInt(Documento);
                             user.Nombre = Nombre;
                             user.Contraseña = Contraseña;
-                            user.Consultorio = Consultorio;
+                            user.Consultorio = Integer.parseInt(Consultorio);
                             user.rol = rol;
                             boolean respon = user.UpdateUsuario();
                             if (respon) {
@@ -125,12 +125,11 @@ public class AdminMedicoController {
                                 JOptionPane.showMessageDialog(null, "Hubo un error al actualizar al Medico");
                             }
                         }
-                    }
-                    else{
+                    } else {
                         JOptionPane.showMessageDialog(null, "El consultorio ya esta ocupado");
                     }
                 }
-                
+
             } else {
                 JOptionPane.showMessageDialog(null, "El numero de documento no fue encontrado");
             }

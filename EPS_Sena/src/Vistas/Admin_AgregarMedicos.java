@@ -1,13 +1,14 @@
-
 package Vistas;
 
 import Class.RenderTable;
 import Controller.AdminMedicoController;
+import Modelo.Usuario;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -19,14 +20,15 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
         setIconImage(getIconImage());
-        listarMedicos();
+        showMedicos();
     }
 // icono JFrame 
+
     @Override
-    public Image getIconImage(){
-    Image retValue = Toolkit.getDefaultToolkit().getImage (ClassLoader.getSystemResource("IMG/Logosena.png"));
-    return retValue;
-    
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("IMG/Logosena.png"));
+        return retValue;
+
     }
 
     @SuppressWarnings("unchecked")
@@ -46,6 +48,7 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableMedico = new javax.swing.JTable();
         btnCrearMedico = new javax.swing.JToggleButton();
+        btnCrearMedico1 = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
@@ -76,7 +79,7 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         jLabel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -192,6 +195,16 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
             }
         });
 
+        btnCrearMedico1.setBackground(new java.awt.Color(45, 65, 115));
+        btnCrearMedico1.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
+        btnCrearMedico1.setForeground(new java.awt.Color(255, 255, 255));
+        btnCrearMedico1.setText("refresh");
+        btnCrearMedico1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearMedico1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -206,8 +219,10 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
                         .addComponent(jLabel5))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addComponent(btnCrearMedico)))
-                .addGap(946, 946, Short.MAX_VALUE))
+                        .addComponent(btnCrearMedico)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCrearMedico1)))
+                .addGap(994, 994, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,9 +233,11 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCrearMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCrearMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCrearMedico1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);
@@ -234,7 +251,7 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnvolverActionPerformed
 
     private void btnCrearMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearMedicoActionPerformed
-       new Admin_CrearMedico().setVisible(true);
+        new Admin_CrearMedico().setVisible(true);
     }//GEN-LAST:event_btnCrearMedicoActionPerformed
 
     private void jTableMedicoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTableMedicoPropertyChange
@@ -243,43 +260,54 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
 
     private void jTableMedicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMedicoMouseClicked
         int column = jTableMedico.getColumnModel().getColumnIndexAtX(evt.getX());
-        int rows = evt.getY()/jTableMedico.getRowHeight();
-        
-        if(rows < jTableMedico.getRowCount() && rows >= 0 && column < jTableMedico.getColumnCount() && column >= 0){
+        int rows = evt.getY() / jTableMedico.getRowHeight();
+
+        if (rows < jTableMedico.getRowCount() && rows >= 0 && column < jTableMedico.getColumnCount() && column >= 0) {
             Object value = jTableMedico.getValueAt(rows, column);
-            if(value instanceof JButton){
-                ((JButton)value).doClick();
-                JButton button = (JButton)value;
-                if(button.getName().equals("modificar")){
+            if (value instanceof JButton) {
+                ((JButton) value).doClick();
+                JButton button = (JButton) value;
+                if (button.getName().equals("modificar")) {
                     int data = jTableMedico.getSelectedRow();
-                    String TipoDocumento = (String)jTableMedico.getValueAt(data, 0);
-                    int Documento = (int)jTableMedico.getValueAt(data, 1);
-                    String Nombre = (String)jTableMedico.getValueAt(data, 2);
-                    int Consultorio = (int)jTableMedico.getValueAt(data, 3);
+                    String TipoDocumento = (String) jTableMedico.getValueAt(data, 0);
+                    int Documento = (int) jTableMedico.getValueAt(data, 1);
+                    String Nombre = (String) jTableMedico.getValueAt(data, 2);
+                    int Consultorio = (int) jTableMedico.getValueAt(data, 3);
                     Admin_ModificarMedico modificar = new Admin_ModificarMedico();
                     modificar.listarmedicos(TipoDocumento, String.valueOf(Documento), Nombre, String.valueOf(Consultorio));
                     modificar.setVisible(true);
                 }
-                if(button.getName().equals("eliminar")){
+                if (button.getName().equals("eliminar")) {
                     int data = jTableMedico.getSelectedRow();
-                    int Document = (int)jTableMedico.getValueAt(data, 1);
+                    int Document = (int) jTableMedico.getValueAt(data, 1);
                     int option = JOptionPane.showConfirmDialog(rootPane, "¿Esta seguro de querer eliminar este registro?");
-                    
-                    if(option == JOptionPane.YES_OPTION){
-                        if(Document > 0){
+
+                    if (option == JOptionPane.YES_OPTION) {
+                        if (Document > 0) {
                             AdminMedicoController admin = new AdminMedicoController();
                             admin.ValidarDeleteUsuarioMedico(Document);
                         }
-                    }else{
+                    } else {
                         JOptionPane.showMessageDialog(rootPane, "Registro no eliminado");
                     }
-                    
+
                 }
             }
         }
     }//GEN-LAST:event_jTableMedicoMouseClicked
 
-    
+    private void btnCrearMedico1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearMedico1ActionPerformed
+        DefaultTableModel model = (DefaultTableModel) jTableMedico.getModel();
+        int num = model.getRowCount();
+        if(num == 0) {
+            showMedicos();
+        } else {
+            model.setRowCount(0);
+            showMedicos();
+        }
+        
+    }//GEN-LAST:event_btnCrearMedico1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -308,7 +336,7 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
         ResultSet ResultSet;
         //</editor-fold>
         //</editor-fold>
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -316,23 +344,22 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
             }
         });
     }
-    
-    public static void listarMedicos(){
+
+    public void showMedicos() {
+        ArrayList<Usuario> list = listarMedicos();
         JButton BtnModificar = new JButton("Modificar");
         BtnModificar.setName("modificar");
         JButton BtnEliminar = new JButton("Eliminar");
         BtnEliminar.setName("eliminar");
-        try{
-            AdminMedicoController admin = new AdminMedicoController();
-            ResultSet response = admin.ListarMedicos();
-            Object[] usuarios = new Object[6];
+        try {
             DefaultTableModel model = new DefaultTableModel();
             model = (DefaultTableModel) jTableMedico.getModel();
-            while(response.next()){
-                usuarios[0] = response.getString("TipoDocumento");
-                usuarios[1] = response.getInt("Identificacion");
-                usuarios[2] = response.getString("Nombre");
-                usuarios[3] = response.getInt("Consultorio_Medico");
+            Object[] usuarios = new Object[6];
+            for (int i = 0; i < list.size(); i++) {
+                usuarios[0] = list.get(i).getTipoDocumento();
+                usuarios[1] = list.get(i).getDocumento();
+                usuarios[2] = list.get(i).getNombre();
+                usuarios[3] = list.get(i).getConsultorio();
                 usuarios[4] = BtnModificar;
                 usuarios[5] = BtnEliminar;
                 model.addRow(usuarios);
@@ -344,14 +371,32 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
             TableColumn columnEliminar = jTableMedico.getColumn("Eliminar");
             columnModificar.setPreferredWidth(50);
             columnEliminar.setPreferredWidth(50);
-            
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    public ArrayList<Usuario> listarMedicos() {
+        ArrayList<Usuario> MedicoList = new ArrayList<>();
+        try {
+            AdminMedicoController admin = new AdminMedicoController();
+            ResultSet response = admin.ListarMedicos();
+            Usuario user;
+            while (response.next()) {
+                user = new Usuario(response.getString("TipoDocumento"), response.getInt("Identificacion"),
+                         response.getString("Nombre"), response.getInt("Consultorio_Medico"));
+                MedicoList.add(user);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return MedicoList;
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnCrearMedico;
+    private javax.swing.JToggleButton btnCrearMedico1;
     private javax.swing.JButton btnvolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

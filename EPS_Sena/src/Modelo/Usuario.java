@@ -18,8 +18,18 @@ public class Usuario {
     public Date Fecha_Nacimiento;
     public String Sexo;
     public String Contraseña;
-    public String Consultorio;
+    public int Consultorio;
     public int rol;
+        
+    public Usuario() {
+    }
+    
+    public Usuario(String TipoDocumento, int Documento, String Nombre, int Consultorio){
+        this.TipoDocumento=TipoDocumento;
+        this.Documento=Documento;
+        this.Nombre=Nombre;
+        this.Consultorio=Consultorio;
+    }
     
     public boolean AddUsuario(){
         boolean respon = false;
@@ -32,7 +42,7 @@ public class Usuario {
             stmt.setDate(4, Fecha_Nacimiento);
             stmt.setString(5, Sexo);
             stmt.setString(6, Contraseña);
-            stmt.setString(7, Consultorio);
+            stmt.setInt(7, Consultorio);
             stmt.setInt(8, rol);
             int response = stmt.executeUpdate();
             if(response > 0){
@@ -58,7 +68,7 @@ public class Usuario {
             stmt.setDate(3, Fecha_Nacimiento);
             stmt.setString(4, Sexo);
             stmt.setString(5, Contraseña);
-            stmt.setString(6, Consultorio);
+            stmt.setInt(6, Consultorio);
             stmt.setInt(7, rol);
             stmt.setInt(8, Documento);
             int response = stmt.executeUpdate();
@@ -118,4 +128,39 @@ public class Usuario {
         }
         return response;
     }
+
+    public String getTipoDocumento() {
+        return TipoDocumento;
+    }
+
+    public int getDocumento() {
+        return Documento;
+    }
+
+    public String getNombre() {
+        return Nombre;
+    }
+
+    public Date getFecha_Nacimiento() {
+        return Fecha_Nacimiento;
+    }
+
+    public String getSexo() {
+        return Sexo;
+    }
+
+    public String getContraseña() {
+        return Contraseña;
+    }
+
+    public int getConsultorio() {
+        return Consultorio;
+    }
+
+    public int getRol() {
+        return rol;
+    }
+
+    
+    
 }
