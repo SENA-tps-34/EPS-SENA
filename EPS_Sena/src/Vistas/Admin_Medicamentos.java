@@ -1,24 +1,30 @@
-
 package Vistas;
 
+import Class.RenderTable;
+import Controller.AdminMedicamentoController;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.sql.ResultSet;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 public class Admin_Medicamentos extends javax.swing.JFrame {
 
     public Admin_Medicamentos() {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
-            setIconImage(getIconImage());
+        setIconImage(getIconImage());
+        listarMedicamentos();
     }
 // icono JFrame 
+
     @Override
-    public Image getIconImage(){
-    Image retValue = Toolkit.getDefaultToolkit().getImage (ClassLoader.getSystemResource("IMG/Logosena.png"));
-    return retValue;
-    
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("IMG/Logosena.png"));
+        return retValue;
+
     }
 
     @SuppressWarnings("unchecked")
@@ -68,7 +74,7 @@ public class Admin_Medicamentos extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         jLabel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -171,7 +177,7 @@ public class Admin_Medicamentos extends javax.swing.JFrame {
         btnCrearMedico.setBackground(new java.awt.Color(45, 65, 115));
         btnCrearMedico.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
         btnCrearMedico.setForeground(new java.awt.Color(255, 255, 255));
-        btnCrearMedico.setText("Crear Medico");
+        btnCrearMedico.setText("Crear Medicamento");
         btnCrearMedico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCrearMedicoActionPerformed(evt);
@@ -192,7 +198,7 @@ public class Admin_Medicamentos extends javax.swing.JFrame {
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
-                        .addComponent(btnCrearMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnCrearMedico)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -220,26 +226,43 @@ public class Admin_Medicamentos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnvolverActionPerformed
 
     private void jTableMedicamentosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMedicamentosMouseClicked
-       int column = jTableMedicamentos.getColumnModel().getColumnIndexAtX(evt.getX());
-        int rows = evt.getY()/jTableMedicamentos.getRowHeight();
-        if(rows < jTableMedicamentos.getRowCount() && rows >= 0 && column < jTableMedicamentos.getColumnCount() && column >= 0){
+        int column = jTableMedicamentos.getColumnModel().getColumnIndexAtX(evt.getX());
+        int rows = evt.getY() / jTableMedicamentos.getRowHeight();
+        if (rows < jTableMedicamentos.getRowCount() && rows >= 0 && column < jTableMedicamentos.getColumnCount() && column >= 0) {
             Object value = jTableMedicamentos.getValueAt(rows, column);
-            if(value instanceof JButton){
-                ((JButton)value).doClick();
-                JButton button = (JButton)value;
-                if(button.getName().equals("modificar")){
-                   JOptionPane.showMessageDialog(rootPane, "Agregar formulario");
+            if (value instanceof JButton) {
+                ((JButton) value).doClick();
+                JButton button = (JButton) value;
+                if (button.getName().equals("modificar")) {
+                    int data = jTableMedicamentos.getSelectedRow();
+                    int Id = (int)jTableMedicamentos.getValueAt(data,0);
+                    String Nombre = (String)jTableMedicamentos.getValueAt(data, 1);
+                    String Descripcion = (String)jTableMedicamentos.getValueAt(data, 2);
+                    Admin_ModificarMedicamentos modificar = new Admin_ModificarMedicamentos();
+                    modificar.listarmedicamentos(String.valueOf(Id), Nombre, Descripcion);
+                    modificar.setVisible(true);
                 }
-                if(button.getName().equals("eliminar")){
-                    JOptionPane.showMessageDialog(rootPane, "Agregar funcionamiento");
+                if (button.getName().equals("eliminar")) {
+                    int data = jTableMedicamentos.getSelectedRow();
+                    int Id = (int)jTableMedicamentos.getValueAt(data, 0);
+                    int option = JOptionPane.showConfirmDialog(rootPane, "¿Esta seguro de querer eliminar este registro?"); 
+                    
+                    if(option == JOptionPane.YES_OPTION){
+                        if(Id > 0){
+                            AdminMedicamentoController delet = new AdminMedicamentoController();
+                            delet.ValidarDeleteMedicamento(Id);
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(rootPane, "Registro no eliminado");
+                    }
                 }
             }
         }
-                                           
+
     }//GEN-LAST:event_jTableMedicamentosMouseClicked
 
     private void btnCrearMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearMedicoActionPerformed
-        new Admin_CrearMedico().setVisible(true);
+        new Admin_CrearMedicamento().setVisible(true);
     }//GEN-LAST:event_btnCrearMedicoActionPerformed
 
     /**
@@ -278,6 +301,38 @@ public class Admin_Medicamentos extends javax.swing.JFrame {
         });
     }
 
+    public static void listarMedicamentos() {
+        JButton BtnModificar = new JButton("Modificar");
+        BtnModificar.setName("modificar");
+        JButton BtnEliminar = new JButton("Eliminar");
+        BtnEliminar.setName("eliminar");
+        try {
+            AdminMedicamentoController med = new AdminMedicamentoController();
+            ResultSet response = med.ListarMedicamento();
+            Object[] medicametos = new Object[5];
+            DefaultTableModel model = new DefaultTableModel();
+            model = (DefaultTableModel) jTableMedicamentos.getModel();
+            while (response.next()) {
+                medicametos[0] = response.getInt("Id");
+                medicametos[1] = response.getString("Nombre");
+                medicametos[2] = response.getString("Descripcion");
+                medicametos[3] = BtnModificar;
+                medicametos[4] = BtnEliminar;
+                model.addRow(medicametos);
+            }
+            jTableMedicamentos.setDefaultRenderer(Object.class, new RenderTable());
+            jTableMedicamentos.setModel(model);
+            jTableMedicamentos.setRowHeight(40);
+            TableColumn columnModificar = jTableMedicamentos.getColumn("Modificar");
+            TableColumn columnEliminar = jTableMedicamentos.getColumn("Eliminar");
+            columnModificar.setPreferredWidth(50);
+            columnEliminar.setPreferredWidth(50);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnCrearMedico;
     private javax.swing.JButton btnvolver;
@@ -291,6 +346,6 @@ public class Admin_Medicamentos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTableMedicamentos;
+    public static javax.swing.JTable jTableMedicamentos;
     // End of variables declaration//GEN-END:variables
 }

@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Vistas;
+import Class.ValidacionCampos;
 import Controller.AdminPacienteController;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -259,6 +260,7 @@ public class Admin_CrearPaciente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        ValidacionCampos valid = new ValidacionCampos();
         String TipoDocumento = jComboboxTipoDocumento.getSelectedItem().toString();
         String Documento = txtnumeroDocumento.getText();
         String Nombre = txtNombre.getText();
@@ -272,10 +274,10 @@ public class Admin_CrearPaciente extends javax.swing.JFrame {
             if("Seleccione".equals(TipoDocumento)){
                 JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un tipo de documento");
             }else{
-                if(!solonumeros(txtnumeroDocumento.getText().trim())){
+                if(!valid.solonumeros(txtnumeroDocumento.getText().trim())){
                     JOptionPane.showMessageDialog(rootPane, "El numero de documento no puede contener letras");
                 }else{
-                    if(!sololetras(txtNombre.getText().trim())){
+                    if(!valid.sololetras(txtNombre.getText().trim())){
                         JOptionPane.showMessageDialog(rootPane, "El nombre no puede contener numeros");
                     }else{
                         if(((JTextField)dateFNacimiento.getDateEditor().getUiComponent()).getText().isEmpty()){
@@ -296,13 +298,6 @@ public class Admin_CrearPaciente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
-    public static boolean solonumeros(String datos){
-        return datos.matches("[0-9]*");
-    }
-    public static boolean sololetras(String datos){
-        return datos.matches("[a-ñ-zA-Z]*");
-    }
-    
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed

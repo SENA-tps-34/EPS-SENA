@@ -4,9 +4,8 @@
  */
 package Vistas;
 
+import Class.ValidacionCampos;
 import Controller.AdminMedicoController;
-import static Vistas.Admin_CrearPaciente.sololetras;
-import static Vistas.Admin_CrearPaciente.solonumeros;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
@@ -241,6 +240,7 @@ public class Admin_ModificarMedico extends javax.swing.JFrame {
     }
     
     private void jBtnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnInsertActionPerformed
+        ValidacionCampos valid= new ValidacionCampos();
         String TipoDocumento = jComboboxTipoDocumento.getSelectedItem().toString();
         String Documento = jTextFieldDocumento.getText();
         String Nombre = jTextFieldNombre.getText();
@@ -252,13 +252,13 @@ public class Admin_ModificarMedico extends javax.swing.JFrame {
             if("Seleccione".equals(TipoDocumento)){
                 JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un tipo de documento");
             }else{
-                if(!solonumeros(jTextFieldDocumento.getText().trim())){
+                if(!valid.solonumeros(jTextFieldDocumento.getText().trim())){
                     JOptionPane.showMessageDialog(rootPane, "El numero de documento no puede contener letras");
                 }else{
-                    if(!sololetras(jTextFieldNombre.getText().trim())){
+                    if(!valid.sololetras(jTextFieldNombre.getText().trim())){
                         JOptionPane.showMessageDialog(rootPane, "El nombre no puede contener numeros");
                     }else{
-                        if(!solonumeros(jTextFieldConsultorio.getText().trim())){
+                        if(!valid.solonumeros(jTextFieldConsultorio.getText().trim())){
                             JOptionPane.showMessageDialog(rootPane, "El consultorio no puede contener letras");
                         }else{
                             int rol = 2;

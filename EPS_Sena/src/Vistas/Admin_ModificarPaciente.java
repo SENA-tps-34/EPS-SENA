@@ -1,9 +1,8 @@
 
 package Vistas;
 
+import Class.ValidacionCampos;
 import Controller.AdminPacienteController;
-import static Vistas.Admin_CrearPaciente.sololetras;
-import static Vistas.Admin_CrearPaciente.solonumeros;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.sql.Date;
@@ -263,6 +262,7 @@ public class Admin_ModificarPaciente extends javax.swing.JFrame {
     }
     
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        ValidacionCampos valid= new ValidacionCampos();
         String TipoDocumento = jComboboxTipoDocumento.getSelectedItem().toString();
         String Documento = txtnumeroDocumento.getText();
         String Nombre = txtNombre.getText();
@@ -276,10 +276,10 @@ public class Admin_ModificarPaciente extends javax.swing.JFrame {
             if("Seleccione".equals(TipoDocumento)){
                 JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un tipo de documento");
             }else{
-                if(!solonumeros(txtnumeroDocumento.getText().trim())){
+                if(!valid.solonumeros(txtnumeroDocumento.getText().trim())){
                     JOptionPane.showMessageDialog(rootPane, "El numero de documento no puede contener letras");
                 }else{
-                    if(!sololetras(txtNombre.getText().trim())){
+                    if(!valid.sololetras(txtNombre.getText().trim())){
                         JOptionPane.showMessageDialog(rootPane, "El nombre no puede contener numeros");
                     }else{
                         if(((JTextField)dateFNacimiento.getDateEditor().getUiComponent()).getText().isEmpty()){

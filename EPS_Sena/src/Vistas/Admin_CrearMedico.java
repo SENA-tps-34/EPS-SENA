@@ -1,6 +1,7 @@
 
 package Vistas;
 
+import Class.ValidacionCampos;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
@@ -9,8 +10,8 @@ import Controller.AdminMedicoController;
 public class Admin_CrearMedico extends javax.swing.JFrame {
 
     public Admin_CrearMedico() {
-         initComponents();
-         setResizable(false);
+        initComponents();
+        setResizable(false);
         this.setLocationRelativeTo(null);
         setIconImage(getIconImage());
     }
@@ -220,7 +221,7 @@ public class Admin_CrearMedico extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldConsultorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jToggleButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtnInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -233,6 +234,7 @@ public class Admin_CrearMedico extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnInsertActionPerformed
+        ValidacionCampos valid = new ValidacionCampos();
         String TipoDocumento = jComboboxTipoDocumento.getSelectedItem().toString();
         String Documento = jTextFieldDocumento.getText();
         String Nombre = jTextFieldNombre.getText();
@@ -244,13 +246,13 @@ public class Admin_CrearMedico extends javax.swing.JFrame {
             if("Seleccione".equals(TipoDocumento)){
                 JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un tipo de documento");
             }else{
-                if(!solonumeros(jTextFieldDocumento.getText().trim())){
+                if(!valid.solonumeros(jTextFieldDocumento.getText().trim())){
                     JOptionPane.showMessageDialog(rootPane, "El numero de documento no puede contener letras");
                 }else{
-                    if(!sololetras(jTextFieldNombre.getText().trim())){
+                    if(!valid.sololetras(jTextFieldNombre.getText().trim())){
                         JOptionPane.showMessageDialog(rootPane, "El nombre no puede contener numeros");
                     }else{
-                        if(!solonumeros(jTextFieldConsultorio.getText().trim())){
+                        if(!valid.solonumeros(jTextFieldConsultorio.getText().trim())){
                             JOptionPane.showMessageDialog(rootPane, "El consultorio no puede contener letras");
                         }else{
                             int rol = 2;
@@ -265,12 +267,6 @@ public class Admin_CrearMedico extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBtnInsertActionPerformed
 
-    public static boolean solonumeros(String datos){
-        return datos.matches("[0-9]*");
-    }
-    public static boolean sololetras(String datos){
-        return datos.matches("[a-ñ-zA-Z]*");
-    }
     
     private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformed
         // TODO add your handling code here:
