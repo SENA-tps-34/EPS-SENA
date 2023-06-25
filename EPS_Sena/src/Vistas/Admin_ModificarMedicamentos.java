@@ -5,7 +5,7 @@
 package Vistas;
 
 import Class.ValidacionCampos;
-import Controller.AdminMedicamentoController;
+import Controller.MedicamentoController;
 import javax.swing.JOptionPane;
 
 /**
@@ -100,6 +100,7 @@ public class Admin_ModificarMedicamentos extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
         jLabel5.setText("ID");
 
+        jTextFieldID.setEditable(false);
         jTextFieldID.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTextFieldID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -238,7 +239,7 @@ public class Admin_ModificarMedicamentos extends javax.swing.JFrame {
                 if (!valid.sololetras(jTextFieldNombre.getText().trim())) {
                     JOptionPane.showMessageDialog(rootPane, "El nombre no puede contener numeros");
                 } else {
-                    AdminMedicamentoController adduser = new AdminMedicamentoController();
+                    MedicamentoController adduser = new MedicamentoController();
                     adduser.ValidarUpdateMedicamento(Id, Nombre, Descripcion);
                     this.dispose();
                 }

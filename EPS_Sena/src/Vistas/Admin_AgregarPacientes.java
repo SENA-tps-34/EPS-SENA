@@ -2,11 +2,13 @@
 package Vistas;
 
 import Class.RenderTable;
-import Controller.AdminPacienteController;
+import Controller.PacienteController;
+import Modelo.Usuario;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -18,7 +20,7 @@ public class Admin_AgregarPacientes extends javax.swing.JFrame {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
         setIconImage(getIconImage());
-        listarPacientes();
+        showPacientes();
     }
 // icono JFrame 
     @Override
@@ -45,6 +47,7 @@ public class Admin_AgregarPacientes extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablePacientes = new javax.swing.JTable();
         btnCrearPaciente = new javax.swing.JToggleButton();
+        btnRefreshTable = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
@@ -188,13 +191,23 @@ public class Admin_AgregarPacientes extends javax.swing.JFrame {
             }
         });
 
+        btnRefreshTable.setBackground(new java.awt.Color(45, 65, 115));
+        btnRefreshTable.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
+        btnRefreshTable.setForeground(new java.awt.Color(255, 255, 255));
+        btnRefreshTable.setText("refresh");
+        btnRefreshTable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshTableActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 978, Short.MAX_VALUE)
             .addComponent(jSeparator1)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 978, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -202,8 +215,10 @@ public class Admin_AgregarPacientes extends javax.swing.JFrame {
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addComponent(btnCrearPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnCrearPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnRefreshTable)))
+                .addContainerGap(695, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,9 +229,11 @@ public class Admin_AgregarPacientes extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCrearPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnCrearPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                    .addComponent(btnRefreshTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);
@@ -260,7 +277,7 @@ public class Admin_AgregarPacientes extends javax.swing.JFrame {
                     
                     if(option == JOptionPane.YES_OPTION){
                         if(Document > 0){
-                            AdminPacienteController admin = new AdminPacienteController();
+                            PacienteController admin = new PacienteController();
                             admin.ValidarDeleteUsuarioPaciente(Document);
                         }
                     }else{
@@ -270,6 +287,17 @@ public class Admin_AgregarPacientes extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jTablePacientesMouseClicked
+
+    private void btnRefreshTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshTableActionPerformed
+        DefaultTableModel model = (DefaultTableModel) jTablePacientes.getModel();
+        int num = model.getRowCount();
+        if (num == 0) {
+            showPacientes();
+        } else if (num > 0) {
+            model.setRowCount(0);
+            showPacientes();
+        }
+    }//GEN-LAST:event_btnRefreshTableActionPerformed
 
     /**
      * @param args the command line arguments
@@ -309,23 +337,22 @@ public class Admin_AgregarPacientes extends javax.swing.JFrame {
         });
     }
     
-    public static void listarPacientes(){
+    public void showPacientes(){
+        ArrayList<Usuario> list = listarPacientes();
         JButton BtnModificar = new JButton("Modificar");
         BtnModificar.setName("modificar");
         JButton BtnEliminar = new JButton("Eliminar");
         BtnEliminar.setName("eliminar");
         try{
-            AdminPacienteController admin = new AdminPacienteController();
-            ResultSet response = admin.ListarPacientes();
-            Object[] usuarios = new Object[7];
             DefaultTableModel model = new DefaultTableModel();
             model = (DefaultTableModel) jTablePacientes.getModel();
-            while(response.next()){
-                usuarios[0] = response.getString("TipoDocumento");
-                usuarios[1] = response.getInt("Identificacion");
-                usuarios[2] = response.getString("Nombre");
-                usuarios[3] = response.getDate("Fecha_Nacimiento");
-                usuarios[4] = response.getString("Sexo");
+            Object[] usuarios = new Object[7];
+            for(int i = 0; i < list.size(); i++){
+                usuarios[0] = list.get(i).getTipoDocumento();
+                usuarios[1] = list.get(i).getDocumento();
+                usuarios[2] = list.get(i).getNombre();
+                usuarios[3] = list.get(i).getFecha_Nacimiento();
+                usuarios[4] = list.get(i).getSexo();
                 usuarios[5] = BtnModificar;
                 usuarios[6] = BtnEliminar;
                 model.addRow(usuarios);
@@ -337,14 +364,32 @@ public class Admin_AgregarPacientes extends javax.swing.JFrame {
             TableColumn columnEliminar = jTablePacientes.getColumn("Eliminar");
             columnModificar.setPreferredWidth(50);
             columnEliminar.setPreferredWidth(50);
-            
         }catch(Exception e){
             e.printStackTrace();
         }
     }
     
+    public ArrayList<Usuario> listarPacientes(){
+        ArrayList<Usuario> PacienteList = new ArrayList<>();
+        try{
+            PacienteController admin = new PacienteController();
+            ResultSet response = admin.ListarPacientes();
+            Usuario user;
+            while(response.next()){
+                user = new Usuario(response.getString("TipoDocumento"), response.getInt("Identificacion"),
+                        response.getString("Nombre"), response.getInt("Consultorio_Medico"), 
+                        response.getDate("Fecha_Nacimiento"),response.getString("Sexo"));
+                PacienteList.add(user);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return PacienteList;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnCrearPaciente;
+    private javax.swing.JToggleButton btnRefreshTable;
     private javax.swing.JButton btnvolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

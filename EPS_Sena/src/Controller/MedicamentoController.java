@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
  *
  * @author ADSI
  */
-public class AdminMedicamentoController {
+public class MedicamentoController {
 
     static Medicamentos med = new Medicamentos();
 

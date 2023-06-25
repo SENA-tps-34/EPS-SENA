@@ -4,7 +4,7 @@
  */
 package Vistas;
 import Class.ValidacionCampos;
-import Controller.AdminPacienteController;
+import Controller.PacienteController;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.sql.Date;
@@ -287,7 +287,7 @@ public class Admin_CrearPaciente extends javax.swing.JFrame {
                                 JOptionPane.showMessageDialog(rootPane, "Debe seleccionar el sexo");
                             }else{
                                 int rol = 3;
-                                AdminPacienteController AddUserPaciente = new AdminPacienteController();
+                                PacienteController AddUserPaciente = new PacienteController();
                                 AddUserPaciente.ValidarAddUsuarioPaciente(TipoDocumento, Documento, Nombre, Date.valueOf(Fecha), Contraseña, Sexo, rol);
                                 this.dispose();
                             }

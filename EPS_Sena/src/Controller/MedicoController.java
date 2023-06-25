@@ -5,17 +5,14 @@
 package Controller;
 
 import Modelo.Usuario;
-import Vistas.Admin_AgregarMedicos;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author ADSI
  */
-public class AdminMedicoController {
+public class MedicoController {
 
     static Usuario user = new Usuario();
 
@@ -47,7 +44,7 @@ public class AdminMedicoController {
                     user.rol = rol;
                     boolean respon = user.AddUsuario();
                     if (respon) {
-                        JOptionPane.showMessageDialog(null, "Medico insertado correctamente");
+                        JOptionPane.showMessageDialog(null, "Medico creado correctamente");
                     } else {
                         JOptionPane.showMessageDialog(null, "Hubo un error al insertar al Medico");
                     }

@@ -1,26 +1,30 @@
 package Vistas;
 
+import Controller.TratamientoController;
+import Modelo.Tratamiento;
 import java.awt.Image;
 import java.awt.Toolkit;
-
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 public class Medico_Medicamentos extends javax.swing.JFrame {
 
- 
     public Medico_Medicamentos() {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
         setIconImage(getIconImage());
+        showMedicamentos();
     }
 // icono JFrame 
+
     @Override
-    public Image getIconImage(){
-    Image retValue = Toolkit.getDefaultToolkit().getImage (ClassLoader.getSystemResource("IMG/Logosena.png"));
-    return retValue;
-    
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("IMG/Logosena.png"));
+        return retValue;
+
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -37,8 +41,9 @@ public class Medico_Medicamentos extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableTratamiento = new javax.swing.JTable();
         jButtonAsignarMedicamentos = new javax.swing.JButton();
+        btnRefreshTable = new javax.swing.JToggleButton();
 
         jLabel5.setText("jLabel5");
 
@@ -141,7 +146,7 @@ public class Medico_Medicamentos extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(45, 65, 115));
         jLabel3.setText("Asignacion de Medicamentos");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableTratamiento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -157,7 +162,7 @@ public class Medico_Medicamentos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableTratamiento);
 
         jButtonAsignarMedicamentos.setBackground(new java.awt.Color(45, 65, 115));
         jButtonAsignarMedicamentos.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
@@ -168,6 +173,16 @@ public class Medico_Medicamentos extends javax.swing.JFrame {
         jButtonAsignarMedicamentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAsignarMedicamentosActionPerformed(evt);
+            }
+        });
+
+        btnRefreshTable.setBackground(new java.awt.Color(45, 65, 115));
+        btnRefreshTable.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
+        btnRefreshTable.setForeground(new java.awt.Color(255, 255, 255));
+        btnRefreshTable.setText("refresh");
+        btnRefreshTable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshTableActionPerformed(evt);
             }
         });
 
@@ -185,7 +200,9 @@ public class Medico_Medicamentos extends javax.swing.JFrame {
                         .addComponent(jLabel3))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addComponent(jButtonAsignarMedicamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButtonAsignarMedicamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnRefreshTable)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -196,10 +213,12 @@ public class Medico_Medicamentos extends javax.swing.JFrame {
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(jButtonAsignarMedicamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonAsignarMedicamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRefreshTable, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);
@@ -215,6 +234,56 @@ public class Medico_Medicamentos extends javax.swing.JFrame {
     private void jButtonAsignarMedicamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAsignarMedicamentosActionPerformed
         new Medico_AsignacionMedicamentos().setVisible(true);
     }//GEN-LAST:event_jButtonAsignarMedicamentosActionPerformed
+
+    private void btnRefreshTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshTableActionPerformed
+        DefaultTableModel model = (DefaultTableModel) jTableTratamiento.getModel();
+        int num = model.getRowCount();
+        if (num == 0) {
+            showMedicamentos();
+        } else if (num > 0) {
+            model.setRowCount(0);
+            showMedicamentos();
+        }
+    }//GEN-LAST:event_btnRefreshTableActionPerformed
+
+    public void showMedicamentos(){
+        ArrayList<Tratamiento> list = listarTratamiento();
+        try{
+            DefaultTableModel model = new DefaultTableModel();
+            model = (DefaultTableModel) jTableTratamiento.getModel();
+            Object[] medicametos = new Object[6];
+            for(int i = 0; i < list.size();i++){
+                medicametos[0] = list.get(i).getmedicamento();
+                medicametos[1] = list.get(i).getpaciente();
+                medicametos[2] = list.get(i).getFecha_Asignada();
+                medicametos[3] = list.get(i).getFecha_Inicio();
+                medicametos[4] = list.get(i).getFecha_Fin();
+                medicametos[5] = list.get(i).getObservacion();
+                model.addRow(medicametos);
+            }
+            jTableTratamiento.setModel(model);
+            jTableTratamiento.setRowHeight(40);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public ArrayList<Tratamiento> listarTratamiento() {
+        ArrayList<Tratamiento> TratemientosList = new ArrayList<>();
+        try {
+            TratamientoController tratam = new TratamientoController();
+            ResultSet response = tratam.ListarTratamiento();
+            Tratamiento tratamiento;
+            while (response.next()) {
+                tratamiento = new Tratamiento(response.getString("medicamento"),response.getString("paciente"), response.getDate("Fecha_Asignada"),
+                        response.getDate("Fecha_Inicio"),response.getDate("Fecha_Fin"),response.getString("Observaciones"));
+                TratemientosList.add(tratamiento);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return TratemientosList;
+    }
 
     /**
      * @param args the command line arguments
@@ -255,6 +324,7 @@ public class Medico_Medicamentos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton btnRefreshTable;
     private javax.swing.JButton btnvolver;
     private javax.swing.JButton jButtonAsignarMedicamentos;
     private javax.swing.JLabel jLabel1;
@@ -268,6 +338,6 @@ public class Medico_Medicamentos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableTratamiento;
     // End of variables declaration//GEN-END:variables
 }

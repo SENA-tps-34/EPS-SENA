@@ -203,7 +203,7 @@ public class PerfilAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAsignarUsuariosActionPerformed
 
     private void btnAgregarMedicamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarMedicamentosActionPerformed
-        new Admin_Medicamentos().setVisible(true);
+        new Admin_AgregarMedicamentos().setVisible(true);
         this.dispose();
              
     }//GEN-LAST:event_btnAgregarMedicamentosActionPerformed

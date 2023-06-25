@@ -196,7 +196,7 @@ public class PerfilMedico extends javax.swing.JFrame {
 
     private void btnCitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCitasActionPerformed
         /*mostrar ventana de citas */
-        new Medico_Citas().setVisible(true);
+        new Medico_CitasProgramadas().setVisible(true);
         this.dispose();/*cerrar*/
     }//GEN-LAST:event_btnCitasActionPerformed
 

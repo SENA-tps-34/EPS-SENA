@@ -1,27 +1,31 @@
-
 package Vistas;
 
+import Controller.TratamientoController;
+import Modelo.Tratamiento;
 import Vistas.PerfilPaciente;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 public class Paciente_Medicamentos extends javax.swing.JFrame {
 
     public Paciente_Medicamentos() {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
-               setIconImage(getIconImage());
+        setIconImage(getIconImage());
+        showMedicamentos();
     }
 // icono JFrame 
+
     @Override
-    public Image getIconImage(){
-    Image retValue = Toolkit.getDefaultToolkit().getImage (ClassLoader.getSystemResource("IMG/Logosena.png"));
-    return retValue;
-    
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("IMG/Logosena.png"));
+        return retValue;
+
     }
 
-    
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -37,7 +41,8 @@ public class Paciente_Medicamentos extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableTratamientos = new javax.swing.JTable();
+        btnRefreshTable = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
@@ -136,7 +141,7 @@ public class Paciente_Medicamentos extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(45, 65, 115));
         jLabel5.setText("Consulta de medicamentos ");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableTratamientos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -152,7 +157,17 @@ public class Paciente_Medicamentos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableTratamientos);
+
+        btnRefreshTable.setBackground(new java.awt.Color(45, 65, 115));
+        btnRefreshTable.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
+        btnRefreshTable.setForeground(new java.awt.Color(255, 255, 255));
+        btnRefreshTable.setText("refresh");
+        btnRefreshTable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshTableActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -160,14 +175,16 @@ public class Paciente_Medicamentos extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jSeparator1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel5)
-                .addContainerGap(468, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(jLabel5))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(btnRefreshTable)))
+                .addContainerGap(341, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,10 +193,11 @@ public class Paciente_Medicamentos extends javax.swing.JFrame {
                 .addGap(54, 54, 54)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnRefreshTable, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);
@@ -192,8 +210,55 @@ public class Paciente_Medicamentos extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnvolverActionPerformed
 
-    
-    
+    private void btnRefreshTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshTableActionPerformed
+        DefaultTableModel model = (DefaultTableModel) jTableTratamientos.getModel();
+        int num = model.getRowCount();
+        if (num == 0) {
+            showMedicamentos();
+        } else if (num > 0) {
+            model.setRowCount(0);
+            showMedicamentos();
+        }
+    }//GEN-LAST:event_btnRefreshTableActionPerformed
+
+    public void showMedicamentos() {
+        ArrayList<Tratamiento> list = listarTratamiento();
+        try {
+            DefaultTableModel model = new DefaultTableModel();
+            model = (DefaultTableModel) jTableTratamientos.getModel();
+            Object[] medicametos = new Object[6];
+            for (int i = 0; i < list.size(); i++) {
+                medicametos[0] = list.get(i).getmedicamento();
+                medicametos[1] = list.get(i).getFecha_Asignada();
+                medicametos[2] = list.get(i).getFecha_Inicio();
+                medicametos[3] = list.get(i).getFecha_Fin();
+                medicametos[4] = list.get(i).getObservacion();
+                model.addRow(medicametos);
+            }
+            jTableTratamientos.setModel(model);
+            jTableTratamientos.setRowHeight(40);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<Tratamiento> listarTratamiento() {
+        ArrayList<Tratamiento> TratemientosList = new ArrayList<>();
+        try {
+            TratamientoController tratam = new TratamientoController();
+            ResultSet response = tratam.ListarTratamiento();
+            Tratamiento tratamiento;
+            while (response.next()) {
+                tratamiento = new Tratamiento(response.getString("medicamento"), response.getString("paciente"), response.getDate("Fecha_Asignada"),
+                        response.getDate("Fecha_Inicio"), response.getDate("Fecha_Fin"), response.getString("Observaciones"));
+                TratemientosList.add(tratamiento);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return TratemientosList;
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -231,6 +296,7 @@ public class Paciente_Medicamentos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton btnRefreshTable;
     private javax.swing.JButton btnvolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -242,6 +308,6 @@ public class Paciente_Medicamentos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableTratamientos;
     // End of variables declaration//GEN-END:variables
 }

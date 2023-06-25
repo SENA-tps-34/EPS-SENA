@@ -5,7 +5,7 @@ import Class.ValidacionCampos;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
-import Controller.AdminMedicoController;
+import Controller.MedicoController;
 
 public class Admin_CrearMedico extends javax.swing.JFrame {
 
@@ -256,9 +256,9 @@ public class Admin_CrearMedico extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(rootPane, "El consultorio no puede contener letras");
                         }else{
                             int rol = 2;
-                            AdminMedicoController adduser = new AdminMedicoController();
-                            adduser.ValidarAddUsuarioMedico(TipoDocumento, Documento, Nombre, Contraseña, Consultorio,rol);
                             this.dispose();
+                            MedicoController adduser = new MedicoController();
+                            adduser.ValidarAddUsuarioMedico(TipoDocumento, Documento, Nombre, Contraseña, Consultorio,rol);
                         }
                     }
                 }

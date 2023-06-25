@@ -1,27 +1,76 @@
-
 package Vistas;
 
+import Class.RenderTable;
+import Controller.CitasController;
+import Modelo.Citas;
 import java.awt.Image;
 import java.awt.Toolkit;
-
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import javax.swing.JButton;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 public class Medico_CitasProgramadas extends javax.swing.JFrame {
 
-    
     public Medico_CitasProgramadas() {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
-               setIconImage(getIconImage());
-        
-    }
-     @Override
-    public Image getIconImage(){
-    Image retValue = Toolkit.getDefaultToolkit().getImage (ClassLoader.getSystemResource("IMG/Logosena.png"));
-    return retValue;
-    
+        setIconImage(getIconImage());
+        showCitas();
     }
 
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("IMG/Logosena.png"));
+        return retValue;
 
+    }
+
+    public void showCitas() {
+        ArrayList<Citas> list = listarCitas();
+        JButton BtnConfirmar = new JButton("Confirmar");
+        BtnConfirmar.setName("Confirmar");
+        try {
+            DefaultTableModel model = new DefaultTableModel();
+            model = (DefaultTableModel) jTableCitas.getModel();
+            Object[] citas = new Object[6];
+            for (int i = 0; i < list.size(); i++) {
+                citas[0] = list.get(i).getNumero();
+                citas[1] = list.get(i).getObservacion();
+                citas[2] = list.get(i).getFecha();
+                citas[3] = list.get(i).getHora();
+                citas[4] = list.get(i).getEstado();
+                citas[5] = BtnConfirmar;
+                model.addRow(citas);
+            }
+            jTableCitas.setDefaultRenderer(Object.class, new RenderTable());
+            jTableCitas.setModel(model);
+            jTableCitas.setRowHeight(40);
+            TableColumn columnConfirmar = jTableCitas.getColumn("Accion");
+            columnConfirmar.setPreferredWidth(50);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<Citas> listarCitas() {
+        ArrayList<Citas> CitasList = new ArrayList<>();
+        try {
+            CitasController med = new CitasController();
+            ResultSet response = med.ListarCitas();
+            Citas citas;
+            while (response.next()) {
+                citas = new Citas(response.getInt("Numero"), response.getString("Observacion"), response.getDate("Fecha"),
+                        response.getString("Hora"), response.getString("Estado"), response.getString("Medico"),
+                        response.getInt("Consultorio_Medico"));
+                CitasList.add(citas);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return CitasList;
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -35,9 +84,10 @@ public class Medico_CitasProgramadas extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         btnvolver = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableCitas = new javax.swing.JTable();
+        jLabel6 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
@@ -99,7 +149,7 @@ public class Medico_CitasProgramadas extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(70, 70, 70)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 706, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 725, Short.MAX_VALUE)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -115,7 +165,7 @@ public class Medico_CitasProgramadas extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(33, Short.MAX_VALUE)
+                        .addContainerGap(21, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
@@ -132,50 +182,53 @@ public class Medico_CitasProgramadas extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jLabel5.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
-        jLabel5.setText("Citas Programadas");
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableCitas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Fecha", "Hora", "Paciente", "Consultorio"
+                "Numero", "Cita", "Fecha", "Hora", "Estado", "Accion"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableCitas);
+
+        jLabel6.setFont(new java.awt.Font("Rockwell Condensed", 0, 36)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(45, 65, 115));
+        jLabel6.setText("Citas Programadas");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel5)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jSeparator1)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE)
-                .addGap(25, 25, 25))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         getContentPane().add(jPanel1);
@@ -184,7 +237,7 @@ public class Medico_CitasProgramadas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnvolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnvolverActionPerformed
-        new Medico_Citas().setVisible(true);
+        new PerfilMedico().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnvolverActionPerformed
 
@@ -229,12 +282,13 @@ public class Medico_CitasProgramadas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTable jTableCitas;
     // End of variables declaration//GEN-END:variables
 
     private void setExtendedState() {

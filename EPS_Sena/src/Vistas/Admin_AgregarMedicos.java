@@ -1,12 +1,10 @@
 package Vistas;
 
 import Class.RenderTable;
-import Controller.AdminMedicoController;
+import Controller.MedicoController;
 import Modelo.Usuario;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.swing.JButton;
@@ -48,7 +46,7 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableMedico = new javax.swing.JTable();
         btnCrearMedico = new javax.swing.JToggleButton();
-        btnCrearMedico1 = new javax.swing.JToggleButton();
+        btnRefreshTable = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
@@ -79,7 +77,7 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         jLabel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -121,7 +119,7 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jLabel4)
                 .addGap(14, 14, 14))
-            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1264, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1301, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,13 +193,13 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
             }
         });
 
-        btnCrearMedico1.setBackground(new java.awt.Color(45, 65, 115));
-        btnCrearMedico1.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
-        btnCrearMedico1.setForeground(new java.awt.Color(255, 255, 255));
-        btnCrearMedico1.setText("refresh");
-        btnCrearMedico1.addActionListener(new java.awt.event.ActionListener() {
+        btnRefreshTable.setBackground(new java.awt.Color(45, 65, 115));
+        btnRefreshTable.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
+        btnRefreshTable.setForeground(new java.awt.Color(255, 255, 255));
+        btnRefreshTable.setText("refresh");
+        btnRefreshTable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCrearMedico1ActionPerformed(evt);
+                btnRefreshTableActionPerformed(evt);
             }
         });
 
@@ -209,7 +207,7 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1264, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1301, Short.MAX_VALUE)
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1264, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -221,7 +219,7 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
                         .addGap(23, 23, 23)
                         .addComponent(btnCrearMedico)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnCrearMedico1)))
+                        .addComponent(btnRefreshTable)))
                 .addGap(994, 994, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -235,7 +233,7 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCrearMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCrearMedico1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnRefreshTable, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE))
         );
@@ -257,6 +255,7 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
     private void jTableMedicoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTableMedicoPropertyChange
         // TODO add your handling code here:
     }//GEN-LAST:event_jTableMedicoPropertyChange
+
 
     private void jTableMedicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMedicoMouseClicked
         int column = jTableMedico.getColumnModel().getColumnIndexAtX(evt.getX());
@@ -284,7 +283,7 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
 
                     if (option == JOptionPane.YES_OPTION) {
                         if (Document > 0) {
-                            AdminMedicoController admin = new AdminMedicoController();
+                            MedicoController admin = new MedicoController();
                             admin.ValidarDeleteUsuarioMedico(Document);
                         }
                     } else {
@@ -296,17 +295,16 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTableMedicoMouseClicked
 
-    private void btnCrearMedico1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearMedico1ActionPerformed
+    private void btnRefreshTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshTableActionPerformed
         DefaultTableModel model = (DefaultTableModel) jTableMedico.getModel();
         int num = model.getRowCount();
-        if(num == 0) {
+        if (num == 0) {
             showMedicos();
-        } else {
+        } else if (num > 0) {
             model.setRowCount(0);
             showMedicos();
         }
-        
-    }//GEN-LAST:event_btnCrearMedico1ActionPerformed
+    }//GEN-LAST:event_btnRefreshTableActionPerformed
 
     /**
      * @param args the command line arguments
@@ -379,12 +377,13 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
     public ArrayList<Usuario> listarMedicos() {
         ArrayList<Usuario> MedicoList = new ArrayList<>();
         try {
-            AdminMedicoController admin = new AdminMedicoController();
+            MedicoController admin = new MedicoController();
             ResultSet response = admin.ListarMedicos();
             Usuario user;
             while (response.next()) {
                 user = new Usuario(response.getString("TipoDocumento"), response.getInt("Identificacion"),
-                         response.getString("Nombre"), response.getInt("Consultorio_Medico"));
+                        response.getString("Nombre"), response.getInt("Consultorio_Medico"), 
+                        response.getDate("Fecha_Nacimiento"),response.getString("Sexo"));
                 MedicoList.add(user);
             }
         } catch (Exception e) {
@@ -396,7 +395,7 @@ public class Admin_AgregarMedicos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnCrearMedico;
-    private javax.swing.JToggleButton btnCrearMedico1;
+    private javax.swing.JToggleButton btnRefreshTable;
     private javax.swing.JButton btnvolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

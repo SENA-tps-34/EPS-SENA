@@ -4,9 +4,19 @@
  */
 package Vistas;
 
+import Controller.MedicamentoController;
+import Controller.PacienteController;
+import Controller.TratamientoController;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import Modelo.Medicamentos;
+import Modelo.Usuario;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import javax.swing.JTextField;
 
 /**
  *
@@ -19,9 +29,22 @@ public class Medico_AsignacionMedicamentos extends javax.swing.JFrame {
      */
     public Medico_AsignacionMedicamentos() {
         initComponents();
-             setResizable(false);
+        setResizable(false);
         this.setLocationRelativeTo(null);
         setIconImage(getIconImage());
+        llenarComboboxMedicamentos();
+        llenarComboboxPacientes();
+        Date fecha = new Date();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fecha);
+        jDateChooserFechaInicio.setMinSelectableDate(calendar.getTime());
+        jDateChooserFechaFin.setMinSelectableDate(calendar.getTime());
+
+        jDateChooserAsignada.setMinSelectableDate(calendar.getTime());
+        jDateChooserAsignada.setMaxSelectableDate(calendar.getTime());
+
+        jDateChooserAsignada.setDate(fecha);
     }
 // icono JFrame 
 
@@ -31,7 +54,66 @@ public class Medico_AsignacionMedicamentos extends javax.swing.JFrame {
         return retValue;
 
     }
-    
+
+    public ArrayList<Medicamentos> listarMedicamentos() {
+        ArrayList<Medicamentos> MedicoList = new ArrayList<>();
+        try {
+            MedicamentoController admin = new MedicamentoController();
+            ResultSet response = admin.ListarMedicamento();
+            Medicamentos med;
+            while (response.next()) {
+                med = new Medicamentos(response.getInt("Id"), response.getString("Nombre"),
+                        response.getString("Descripcion"));
+                MedicoList.add(med);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return MedicoList;
+    }
+
+    public ArrayList<Usuario> listarPacientes() {
+        ArrayList<Usuario> PacienteList = new ArrayList<>();
+        try {
+            PacienteController admin = new PacienteController();
+            ResultSet response = admin.ListarPacientes();
+            Usuario user;
+            while (response.next()) {
+                user = new Usuario(response.getString("TipoDocumento"), response.getInt("Identificacion"),
+                        response.getString("Nombre"), response.getInt("Consultorio_Medico"), 
+                        response.getDate("Fecha_Nacimiento"),response.getString("Sexo"));
+                PacienteList.add(user);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return PacienteList;
+    }
+
+    public void llenarComboboxMedicamentos() {
+        try {
+            MedicamentoController admin = new MedicamentoController();
+            ArrayList<Medicamentos> list = listarMedicamentos();
+            for (int i = 0; i < list.size(); i++) {
+                jComboBoxMedicamento.addItem(new Medicamentos(list.get(i).getId(), list.get(i).getNombre(), list.get(i).getDescripcion()));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void llenarComboboxPacientes() {
+        try {
+            PacienteController admin = new PacienteController();
+            ArrayList<Usuario> list = listarPacientes();
+            for (int i = 0; i < list.size(); i++) {
+                jComboBoxPacientes.addItem(new Usuario(list.get(i).getTipoDocumento(), list.get(i).getDocumento(),
+                        list.get(i).getNombre(), list.get(i).getConsultorio(), list.get(i).getFecha_Nacimiento(), list.get(i).getSexo()));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -48,21 +130,21 @@ public class Medico_AsignacionMedicamentos extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBoxMedicamento = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jComboBoxPacientes = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
-        jDateChooser3 = new com.toedter.calendar.JDateChooser();
+        jDateChooserAsignada = new com.toedter.calendar.JDateChooser();
+        jDateChooserFechaInicio = new com.toedter.calendar.JDateChooser();
+        jDateChooserFechaFin = new com.toedter.calendar.JDateChooser();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTextFieldObservacion = new javax.swing.JTextField();
         jButtonAsignar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.GridLayout());
+        getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -114,15 +196,17 @@ public class Medico_AsignacionMedicamentos extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
         jLabel1.setText("Nombre Medicamento");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel11.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
         jLabel11.setText("Paciente ");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel12.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
         jLabel12.setText("Fecha Asignacion");
+
+        jDateChooserAsignada.setDateFormatString("yyyy-MM-dd");
+
+        jDateChooserFechaInicio.setDateFormatString("yyyy-MM-dd");
+
+        jDateChooserFechaFin.setDateFormatString("yyyy-MM-dd");
 
         jLabel13.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
         jLabel13.setText("Fecha Fin");
@@ -133,9 +217,9 @@ public class Medico_AsignacionMedicamentos extends javax.swing.JFrame {
         jLabel15.setFont(new java.awt.Font("Rockwell", 0, 14)); // NOI18N
         jLabel15.setText("Observacion");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldObservacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jTextFieldObservacionActionPerformed(evt);
             }
         });
 
@@ -167,18 +251,18 @@ public class Medico_AsignacionMedicamentos extends javax.swing.JFrame {
                                     .addComponent(jLabel14))
                                 .addGap(56, 56, 56)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
-                                    .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(jComboBoxMedicamento, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jComboBoxPacientes, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jDateChooserAsignada, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                                    .addComponent(jDateChooserFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel15)
                                     .addComponent(jLabel13))
                                 .addGap(118, 118, 118)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jDateChooser3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextField1)))))
+                                    .addComponent(jDateChooserFechaFin, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                                    .addComponent(jTextFieldObservacion)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(193, 193, 193)
                         .addComponent(jButtonAsignar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -191,21 +275,21 @@ public class Medico_AsignacionMedicamentos extends javax.swing.JFrame {
                 .addGap(52, 52, 52)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel12)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDateChooserAsignada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jDateChooserFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(35, 35, 35)
-                        .addComponent(jDateChooser3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jDateChooserFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -213,10 +297,10 @@ public class Medico_AsignacionMedicamentos extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                    .addComponent(jTextFieldObservacion, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(jButtonAsignar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33))
+                .addGap(42, 42, 42))
         );
 
         getContentPane().add(jPanel1);
@@ -224,12 +308,37 @@ public class Medico_AsignacionMedicamentos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jTextFieldObservacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldObservacionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jTextFieldObservacionActionPerformed
 
     private void jButtonAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAsignarActionPerformed
-        JOptionPane.showMessageDialog(null, "Agregar funcionamiento");
+        int medicamento, paciente;
+        medicamento = jComboBoxMedicamento.getItemAt(jComboBoxMedicamento.getSelectedIndex()).getId();
+        paciente = jComboBoxPacientes.getItemAt(jComboBoxMedicamento.getSelectedIndex()).getDocumento();
+        String Fecha_Asignada = ((JTextField) jDateChooserAsignada.getDateEditor().getUiComponent()).getText();
+        String Fecha_Inicio = ((JTextField) jDateChooserFechaInicio.getDateEditor().getUiComponent()).getText();
+        String Fecha_Fin = ((JTextField) jDateChooserFechaFin.getDateEditor().getUiComponent()).getText();
+        String Observacion = jTextFieldObservacion.getText();
+        if (Fecha_Inicio.isEmpty() || Fecha_Fin.isEmpty() || Observacion.isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "Todos los campos son obligatorios");
+        } else {
+            if (((JTextField) jDateChooserFechaInicio.getDateEditor().getUiComponent()).getText().isEmpty()) {
+                JOptionPane.showMessageDialog(rootPane, "Debe seleccionar una fecha de inicio");
+            } else {
+                if (((JTextField) jDateChooserFechaFin.getDateEditor().getUiComponent()).getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(rootPane, "Debe seleccionar una fecha de finalizacion");
+                }else{
+                    if(Observacion.isEmpty()){
+                        JOptionPane.showMessageDialog(rootPane, "Debe colocar observacion");
+                    }else{
+                        this.dispose();
+                        TratamientoController addtrata = new TratamientoController();
+                        addtrata.ValidarAddTratamiento(medicamento, paciente,java.sql.Date.valueOf(Fecha_Asignada) ,java.sql.Date.valueOf(Fecha_Inicio),java.sql.Date.valueOf(Fecha_Fin),Observacion);
+                    }
+                }
+            }
+        }
     }//GEN-LAST:event_jButtonAsignarActionPerformed
 
     /**
@@ -269,11 +378,11 @@ public class Medico_AsignacionMedicamentos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAsignar;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
-    private com.toedter.calendar.JDateChooser jDateChooser3;
+    private javax.swing.JComboBox<Medicamentos> jComboBoxMedicamento;
+    private javax.swing.JComboBox<Usuario> jComboBoxPacientes;
+    private com.toedter.calendar.JDateChooser jDateChooserAsignada;
+    private com.toedter.calendar.JDateChooser jDateChooserFechaFin;
+    private com.toedter.calendar.JDateChooser jDateChooserFechaInicio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -281,18 +390,10 @@ public class Medico_AsignacionMedicamentos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextFieldObservacion;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,62 +6,52 @@ package Modelo;
 
 import Core.Conexion;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
  *
- * @author ADSI
+ * @author cristian
  */
-public class Medicamentos {
-    
+public class Citas {
     static Conexion conn = new Conexion();
     static Connection connect = conn.conectart();
     
-    public int Id;
-    public String Nombre;
-    public String Descripcion;
+    public int Numero;
+    public Date Fecha;
+    public String Hora;
+    public String Estado;
+    public String Observacion;
+    public int Paciente;
+    public int Medico;
+    public String medico;
+    public int Consultorio;
+    
+    public Citas() {
+    }
+    
+    public Citas(int Numero, String Observacion, Date Fecha, String Hora, String Estado,String Medico, int Consultorio){
+        this.Numero = Numero;
+        this.Observacion = Observacion;
+        this.Fecha= Fecha;
+        this.Hora=Hora;
+        this.Estado=Estado;
+        this.medico=Medico;
+        this.Consultorio=Consultorio;
+    }
 
-    public Medicamentos(){
-        
-    }
-    
-    public Medicamentos(int Id, String Nombre, String Descripcion){
-        this.Id=Id;
-        this.Nombre=Nombre;
-        this.Descripcion=Descripcion;
-    }
-    
-    public boolean AddMedicamento(){
+    public boolean AddCitas(){
         boolean respon = false;
         try{
-            String sql = "INSERT INTO medicamentos(Id,Nombre,Descripcion) VALUES (?,?,?)";
+            String sql = "INSERT INTO citas(Observacion,Fecha,Hora,Estado,Medico) VALUES (?,?,?,?,?)";
             PreparedStatement stmt = connect.prepareStatement(sql);
-            stmt.setInt(1, Id);
-            stmt.setString(2, Nombre);
-            stmt.setString(3, Descripcion);
-            int response =stmt.executeUpdate();
-            if(response > 0){
-                respon = true;
-            }else{
-                respon = false;
-            }
-        }catch(SQLException e){
-            e.printStackTrace();
-            respon = false;
-        }
-        return respon;
-    }
-    
-    public boolean UpdateMedicamento(){
-        boolean respon = false;
-        try{
-            String sql = "UPDATE medicamentos SET Nombre=?, Descripcion=? WHERE Id=?";
-            PreparedStatement stmt = connect.prepareStatement(sql);
-            stmt.setString(1, Nombre);
-            stmt.setString(2, Descripcion);
-            stmt.setInt(3, Id);
+            stmt.setString(1, Observacion);
+            stmt.setDate(2, Fecha);
+            stmt.setString(3, Hora);
+            stmt.setString(4, Estado);
+            stmt.setInt(5, Medico);
             int response = stmt.executeUpdate();
             if(response > 0){
                 respon = true;
@@ -75,12 +65,13 @@ public class Medicamentos {
         return respon;
     }
     
-    public boolean DeleteMedicamento(){
+    public boolean UpdateCitaEstado(){
         boolean respon = false;
         try{
-            String sql = "DELETE FROM medicamentos WHERE Id = ?";
+            String sql = "UPDATE citas SET Estado=? WHERE Numero=?";
             PreparedStatement stmt = connect.prepareStatement(sql);
-            stmt.setInt(1, Id);
+            stmt.setString(1, Estado);
+            stmt.setInt(2, Numero);
             int response = stmt.executeUpdate();
             if(response > 0){
                 respon = true;
@@ -94,7 +85,7 @@ public class Medicamentos {
         return respon;
     }
     
-    public ResultSet GetAllMedicamentos(String sql){
+    public ResultSet GetAllCitas(String sql){
         ResultSet response = null;
         try{
             PreparedStatement stmt = connect.prepareStatement(sql);
@@ -106,10 +97,10 @@ public class Medicamentos {
         return response;
     }
     
-    public ResultSet GetMedicamentoById(int id){
+    public ResultSet GetCitasById(int id){
         ResultSet response = null;
         try{
-            String sql = "SELECT * FROM medicamentos WHERE Id=?";
+            String sql = "SELECT * FROM citas WHERE Numero=?";
             PreparedStatement stmt = connect.prepareStatement(sql);
             stmt.setInt(1, id);
             response = stmt.executeQuery();
@@ -120,19 +111,41 @@ public class Medicamentos {
         return response;
     }
     
-    public int getId() {
-        return Id;
+    
+    public int getNumero() {
+        return Numero;
     }
 
-    public String getNombre() {
-        return Nombre;
+    public Date getFecha() {
+        return Fecha;
     }
 
-    public String getDescripcion() {
-        return Descripcion;
+    public String getHora() {
+        return Hora;
+    }
+
+    public String getEstado() {
+        return Estado;
+    }
+
+    public String getObservacion() {
+        return Observacion;
+    }
+
+    public int getPaciente() {
+        return Paciente;
+    }
+
+    public int getMedico() {
+        return Medico;
+    }
+
+    public String getmedico() {
+        return medico;
+    }
+
+    public int getConsultorio() {
+        return Consultorio;
     }
     
-    public String toString(){
-        return Nombre;
-    }
 }

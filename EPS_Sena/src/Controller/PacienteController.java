@@ -5,7 +5,7 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
-public class AdminPacienteController {
+public class PacienteController {
 
     static Usuario user = new Usuario();
 

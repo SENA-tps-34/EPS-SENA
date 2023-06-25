@@ -5,7 +5,6 @@
 package Controller;
 
 import Modelo.Usuario;
-import Vistas.Login;
 import Vistas.PerfilAdmin;
 import Vistas.PerfilMedico;
 import Vistas.PerfilPaciente;

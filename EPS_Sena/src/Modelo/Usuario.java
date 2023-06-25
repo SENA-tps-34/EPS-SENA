@@ -24,11 +24,14 @@ public class Usuario {
     public Usuario() {
     }
     
-    public Usuario(String TipoDocumento, int Documento, String Nombre, int Consultorio){
+    public Usuario(String TipoDocumento, int Documento, String Nombre, int Consultorio,
+            Date Fecha_Nacimiento, String Sexo){
         this.TipoDocumento=TipoDocumento;
         this.Documento=Documento;
         this.Nombre=Nombre;
         this.Consultorio=Consultorio;
+        this.Fecha_Nacimiento=Fecha_Nacimiento;
+        this.Sexo=Sexo;
     }
     
     public boolean AddUsuario(){
@@ -161,6 +164,8 @@ public class Usuario {
         return rol;
     }
 
-    
+    public String toString(){
+        return Documento+" - "+Nombre;
+    }
     
 }
