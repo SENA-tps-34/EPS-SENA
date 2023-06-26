@@ -68,7 +68,7 @@ CREATE TABLE `citas` (
   `Medico` int(11) DEFAULT NULL,
   `Paciente` int(11) DEFAULT NULL,
   FOREIGN KEY (`Medico`) REFERENCES `usuarios` (`Identificacion`),
-  FOREIGN KEY (`Paciente`) REFERENCES `usuarios` (`Identificacion`);
+  FOREIGN KEY (`Paciente`) REFERENCES `usuarios` (`Identificacion`)
 )
 
 -- --------------------------------------------------------
@@ -85,6 +85,8 @@ CREATE TABLE `tratamientos` (
   `Observaciones` text,
   `Paciente` int(11) DEFAULT NULL,
   `Medicamento` int(11) DEFAULT NULL,
+  `Medico` int(11) DEFAULT NULL,
   FOREIGN KEY (`Paciente`) REFERENCES `usuarios` (`Identificacion`),
-  FOREIGN KEY (`Medicamento`) REFERENCES `medicamentos` (`Id`);
+  FOREIGN KEY (`Medicamento`) REFERENCES `medicamentos` (`Id`),
+  FOREIGN KEY (`Medico`) REFERENCES `usuarios` (`Identificacion`)
 )
