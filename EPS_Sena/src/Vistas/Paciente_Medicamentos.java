@@ -146,11 +146,11 @@ public class Paciente_Medicamentos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Medicamento", "Fecha Asignacion ", "Fecha Inicio", "Fecha Fin", "Observacion "
+                "Medicamento", "Fecha Asignacion ", "Fecha Inicio", "Fecha Fin", "Observacion ", "Medico"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -233,6 +233,7 @@ public class Paciente_Medicamentos extends javax.swing.JFrame {
                 medicametos[2] = list.get(i).getFecha_Inicio();
                 medicametos[3] = list.get(i).getFecha_Fin();
                 medicametos[4] = list.get(i).getObservacion();
+                medicametos[5] = list.get(i).getmedico();
                 model.addRow(medicametos);
             }
             jTableTratamientos.setModel(model);
@@ -246,11 +247,11 @@ public class Paciente_Medicamentos extends javax.swing.JFrame {
         ArrayList<Tratamiento> TratemientosList = new ArrayList<>();
         try {
             TratamientoController tratam = new TratamientoController();
-            ResultSet response = tratam.ListarTratamiento();
+            ResultSet response = tratam.ListarTratamientoPaciente();
             Tratamiento tratamiento;
             while (response.next()) {
                 tratamiento = new Tratamiento(response.getString("medicamento"), response.getString("paciente"), response.getDate("Fecha_Asignada"),
-                        response.getDate("Fecha_Inicio"), response.getDate("Fecha_Fin"), response.getString("Observaciones"));
+                        response.getDate("Fecha_Inicio"), response.getDate("Fecha_Fin"), response.getString("Observaciones"), response.getString("medico"));
                 TratemientosList.add(tratamiento);
             }
         } catch (Exception e) {

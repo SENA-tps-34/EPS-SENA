@@ -1,10 +1,8 @@
-
 package Vistas;
 
-import Vistas.Paciente_Medicamentos;
+import Class.SessionManager;
 import java.awt.Image;
 import java.awt.Toolkit;
-import Vistas.Paciente_Citas;
 
 public class PerfilPaciente extends javax.swing.JFrame {
 
@@ -12,15 +10,14 @@ public class PerfilPaciente extends javax.swing.JFrame {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
         setIconImage(getIconImage());
-
     }
 
-       @Override
-    public Image getIconImage(){
-    Image retValue = Toolkit.getDefaultToolkit().getImage (ClassLoader.getSystemResource("IMG/Logosena.png"));
-    return retValue;
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("IMG/Logosena.png"));
+        return retValue;
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -32,6 +29,7 @@ public class PerfilPaciente extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        btnLogout = new javax.swing.JButton();
         btnCitas = new javax.swing.JButton();
         btnMedicamentos = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
@@ -62,7 +60,7 @@ public class PerfilPaciente extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(92, 92, 92)
                 .addComponent(jLabel2)
-                .addContainerGap(976, Short.MAX_VALUE))
+                .addContainerGap(937, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -77,13 +75,29 @@ public class PerfilPaciente extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Rockwell", 0, 24)); // NOI18N
         jLabel3.setText("Paciente ");
 
+        btnLogout.setBackground(new java.awt.Color(218, 234, 247));
+        btnLogout.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
+        btnLogout.setText("Logout");
+        btnLogout.setToolTipText("");
+        btnLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addComponent(jLabel1)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -94,9 +108,11 @@ public class PerfilPaciente extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(33, Short.MAX_VALUE)
+                .addContainerGap(15, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -110,7 +126,7 @@ public class PerfilPaciente extends javax.swing.JFrame {
 
         btnCitas.setBackground(new java.awt.Color(218, 234, 247));
         btnCitas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/chequeo.png"))); // NOI18N
-        btnCitas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCitas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCitas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCitasActionPerformed(evt);
@@ -119,7 +135,7 @@ public class PerfilPaciente extends javax.swing.JFrame {
 
         btnMedicamentos.setBackground(new java.awt.Color(218, 234, 247));
         btnMedicamentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/drugstore.png"))); // NOI18N
-        btnMedicamentos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMedicamentos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnMedicamentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMedicamentosActionPerformed(evt);
@@ -154,7 +170,7 @@ public class PerfilPaciente extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnMedicamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -162,7 +178,7 @@ public class PerfilPaciente extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel5))
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);
@@ -182,6 +198,13 @@ public class PerfilPaciente extends javax.swing.JFrame {
         new Paciente_Medicamentos().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnMedicamentosActionPerformed
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        SessionManager sessionmanager = SessionManager.getInstance();
+        sessionmanager.destroySession();
+        new Login().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnLogoutActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -220,6 +243,7 @@ public class PerfilPaciente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnCitas;
+    private javax.swing.JButton btnLogout;
     public javax.swing.JButton btnMedicamentos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -4,6 +4,7 @@
  */
 package Vistas;
 
+import Class.SessionManager;
 import Controller.MedicamentoController;
 import Controller.PacienteController;
 import Controller.TratamientoController;
@@ -80,8 +81,8 @@ public class Medico_AsignacionMedicamentos extends javax.swing.JFrame {
             Usuario user;
             while (response.next()) {
                 user = new Usuario(response.getString("TipoDocumento"), response.getInt("Identificacion"),
-                        response.getString("Nombre"), response.getInt("Consultorio_Medico"), 
-                        response.getDate("Fecha_Nacimiento"),response.getString("Sexo"));
+                        response.getString("Nombre"), response.getInt("Consultorio_Medico"),
+                        response.getDate("Fecha_Nacimiento"), response.getString("Sexo"));
                 PacienteList.add(user);
             }
         } catch (Exception e) {
@@ -313,13 +314,13 @@ public class Medico_AsignacionMedicamentos extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldObservacionActionPerformed
 
     private void jButtonAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAsignarActionPerformed
-        int medicamento, paciente;
-        medicamento = jComboBoxMedicamento.getItemAt(jComboBoxMedicamento.getSelectedIndex()).getId();
-        paciente = jComboBoxPacientes.getItemAt(jComboBoxMedicamento.getSelectedIndex()).getDocumento();
+        int medicamento = jComboBoxMedicamento.getItemAt(jComboBoxMedicamento.getSelectedIndex()).getId();
+        int paciente = jComboBoxPacientes.getItemAt(jComboBoxPacientes.getSelectedIndex()).getDocumento();
         String Fecha_Asignada = ((JTextField) jDateChooserAsignada.getDateEditor().getUiComponent()).getText();
         String Fecha_Inicio = ((JTextField) jDateChooserFechaInicio.getDateEditor().getUiComponent()).getText();
         String Fecha_Fin = ((JTextField) jDateChooserFechaFin.getDateEditor().getUiComponent()).getText();
         String Observacion = jTextFieldObservacion.getText();
+
         if (Fecha_Inicio.isEmpty() || Fecha_Fin.isEmpty() || Observacion.isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Todos los campos son obligatorios");
         } else {
@@ -328,13 +329,15 @@ public class Medico_AsignacionMedicamentos extends javax.swing.JFrame {
             } else {
                 if (((JTextField) jDateChooserFechaFin.getDateEditor().getUiComponent()).getText().isEmpty()) {
                     JOptionPane.showMessageDialog(rootPane, "Debe seleccionar una fecha de finalizacion");
-                }else{
-                    if(Observacion.isEmpty()){
+                } else {
+                    if (Observacion.isEmpty()) {
                         JOptionPane.showMessageDialog(rootPane, "Debe colocar observacion");
-                    }else{
+                    } else {
                         this.dispose();
+                        SessionManager sessionmanager = SessionManager.getInstance();
+                        String user = sessionmanager.getUserId();
                         TratamientoController addtrata = new TratamientoController();
-                        addtrata.ValidarAddTratamiento(medicamento, paciente,java.sql.Date.valueOf(Fecha_Asignada) ,java.sql.Date.valueOf(Fecha_Inicio),java.sql.Date.valueOf(Fecha_Fin),Observacion);
+                        addtrata.ValidarAddTratamiento(medicamento, paciente,java.sql.Date.valueOf(Fecha_Asignada) ,java.sql.Date.valueOf(Fecha_Inicio),java.sql.Date.valueOf(Fecha_Fin),Observacion, Integer.parseInt(user));
                     }
                 }
             }

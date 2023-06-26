@@ -304,10 +304,10 @@ public class Paciente_Citas extends javax.swing.JFrame {
         ArrayList<Citas> CitasList = new ArrayList<>();
         try {
             CitasController med = new CitasController();
-            ResultSet response = med.ListarCitas();
+            ResultSet response = med.ListarCitasPaciente();
             Citas citas;
             while (response.next()) {
-                citas = new Citas(response.getInt("Numero"), response.getString("Observacion"), response.getDate("Fecha"),
+                citas = new Citas(response.getInt("Numero"), response.getString("Observacion"), response.getString("Paciente"), response.getDate("Fecha"),
                         response.getString("Hora"), response.getString("Estado"), response.getString("Medico")
                  ,response.getInt("Consultorio_Medico"));
                 CitasList.add(citas);

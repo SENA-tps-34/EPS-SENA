@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import Class.SessionManager;
 import Modelo.Usuario;
 import Vistas.PerfilAdmin;
 import Vistas.PerfilMedico;
@@ -27,6 +28,7 @@ public class LoginController {
                 String sql = "SELECT * FROM usuarios WHERE TipoDocumento='"+TipoDocumento+"' AND Identificacion="+Usuario+" AND Contraseña='"+Contraseña+"'";
                 ResultSet response = user.GetAllUsuario(sql);
                 if(response.next()){
+                    SessionManager.getInstance().setUserId(Usuario);
                     String TipoUsuario = response.getString("IdRoles");
                     switch (TipoUsuario) {
                         case "1":

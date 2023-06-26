@@ -29,24 +29,27 @@ public class Tratamiento {
     public Date Fecha_Inicio;
     public Date Fecha_Fin;
     public String Observacion;
+    public int Medico;
+    public String medico;
     
         
     public Tratamiento() {
     }
     
-    public Tratamiento(String Medicamento, String Paciente, Date Fecha_Asignada, Date Fecha_Inicio, Date Fecha_Fin, String Observacion){
+    public Tratamiento(String Medicamento, String Paciente, Date Fecha_Asignada, Date Fecha_Inicio, Date Fecha_Fin, String Observacion, String Medico){
         this.medicamento = Medicamento;
         this.paciente= Paciente;
         this.Fecha_Asignada=Fecha_Asignada;
         this.Fecha_Inicio=Fecha_Inicio;
         this.Fecha_Fin=Fecha_Fin;
         this.Observacion=Observacion;
+        this.medico=Medico;
     }
     
     public boolean AddTratamiento(){
         boolean respon = false;
         try{
-            String sql = "INSERT INTO tratamientos(Medicamento,Paciente,Fecha_asignada,Fecha_inicio,Fecha_fin,Observaciones) VALUES (?,?,?,?,?,?)";
+            String sql = "INSERT INTO tratamientos(Medicamento,Paciente,Fecha_asignada,Fecha_inicio,Fecha_fin,Observaciones,Medico) VALUES (?,?,?,?,?,?,?)";
             PreparedStatement stmt = connect.prepareStatement(sql);
             stmt.setInt(1, Medicamento);
             stmt.setInt(2, Paciente);
@@ -54,6 +57,7 @@ public class Tratamiento {
             stmt.setDate(4, Fecha_Inicio);
             stmt.setDate(5, Fecha_Fin);
             stmt.setString(6, Observacion);
+            stmt.setInt(7, Medico);
             int response = stmt.executeUpdate();
             if(response > 0){
                 respon = true;
@@ -119,6 +123,10 @@ public class Tratamiento {
 
     public String getObservacion() {
         return Observacion;
+    }
+    
+    public String getmedico() {
+        return medico;
     }
     
 }

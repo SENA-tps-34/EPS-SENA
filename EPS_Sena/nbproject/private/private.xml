@@ -3,10 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/cristian/OneDrive/Documentos/GitHub/EPS-SENA/EPS_Sena/src/Vistas/Medico_Medicamentos.java</file>
-            <file>file:/C:/Users/cristian/OneDrive/Documentos/GitHub/EPS-SENA/EPS_Sena/src/Vistas/Admin_AgregarMedicamentos.java</file>
-            <file>file:/C:/Users/cristian/OneDrive/Documentos/GitHub/EPS-SENA/EPS_Sena/src/Modelo/Tratamiento.java</file>
-            <file>file:/C:/Users/cristian/OneDrive/Documentos/GitHub/EPS-SENA/EPS_Sena/src/Controller/MedicoTratamientoController.java</file>
+            <file>file:/C:/Users/cristian/OneDrive/Documentos/GitHub/EPS-SENA/EPS_Sena/src/Core/Conexion.java</file>
         </group>
     </open-files>
 </project-private>

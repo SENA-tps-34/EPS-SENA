@@ -25,6 +25,7 @@ public class Citas {
     public String Estado;
     public String Observacion;
     public int Paciente;
+    public String paciente;
     public int Medico;
     public String medico;
     public int Consultorio;
@@ -32,9 +33,10 @@ public class Citas {
     public Citas() {
     }
     
-    public Citas(int Numero, String Observacion, Date Fecha, String Hora, String Estado,String Medico, int Consultorio){
+    public Citas(int Numero, String Observacion, String Paciente, Date Fecha, String Hora, String Estado,String Medico, int Consultorio){
         this.Numero = Numero;
         this.Observacion = Observacion;
+        this.paciente = Paciente;
         this.Fecha= Fecha;
         this.Hora=Hora;
         this.Estado=Estado;
@@ -45,13 +47,14 @@ public class Citas {
     public boolean AddCitas(){
         boolean respon = false;
         try{
-            String sql = "INSERT INTO citas(Observacion,Fecha,Hora,Estado,Medico) VALUES (?,?,?,?,?)";
+            String sql = "INSERT INTO citas(Observacion,Fecha,Hora,Estado,Medico,Paciente) VALUES (?,?,?,?,?,?)";
             PreparedStatement stmt = connect.prepareStatement(sql);
             stmt.setString(1, Observacion);
             stmt.setDate(2, Fecha);
             stmt.setString(3, Hora);
             stmt.setString(4, Estado);
             stmt.setInt(5, Medico);
+            stmt.setInt(6, Paciente);
             int response = stmt.executeUpdate();
             if(response > 0){
                 respon = true;
@@ -132,6 +135,10 @@ public class Citas {
         return Observacion;
     }
 
+    public String getpaciente() {
+        return paciente;
+    }
+    
     public int getPaciente() {
         return Paciente;
     }

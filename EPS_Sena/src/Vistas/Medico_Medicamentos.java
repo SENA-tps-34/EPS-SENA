@@ -272,11 +272,11 @@ public class Medico_Medicamentos extends javax.swing.JFrame {
         ArrayList<Tratamiento> TratemientosList = new ArrayList<>();
         try {
             TratamientoController tratam = new TratamientoController();
-            ResultSet response = tratam.ListarTratamiento();
+            ResultSet response = tratam.ListarTratamientoMedico();
             Tratamiento tratamiento;
             while (response.next()) {
                 tratamiento = new Tratamiento(response.getString("medicamento"),response.getString("paciente"), response.getDate("Fecha_Asignada"),
-                        response.getDate("Fecha_Inicio"),response.getDate("Fecha_Fin"),response.getString("Observaciones"));
+                        response.getDate("Fecha_Inicio"),response.getDate("Fecha_Fin"),response.getString("Observaciones"),response.getString("medico"));
                 TratemientosList.add(tratamiento);
             }
         } catch (Exception e) {

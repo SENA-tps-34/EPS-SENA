@@ -1,7 +1,9 @@
 package Vistas;
 
+import Class.SessionManager;
 import java.awt.Image;
 import java.awt.Toolkit;
+import javax.swing.JOptionPane;
 
 
 public class PerfilMedico extends javax.swing.JFrame {
@@ -32,6 +34,7 @@ public class PerfilMedico extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        btnLogout = new javax.swing.JButton();
         btnCitas = new javax.swing.JButton();
         btnInformacion = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
@@ -79,16 +82,33 @@ public class PerfilMedico extends javax.swing.JFrame {
                 .addContainerGap(37, Short.MAX_VALUE))
         );
 
+        btnLogout.setBackground(new java.awt.Color(218, 234, 247));
+        btnLogout.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
+        btnLogout.setText("Logout");
+        btnLogout.setToolTipText("");
+        btnLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1089, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jLabel4)
                 .addGap(11, 11, 11))
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -108,6 +128,8 @@ public class PerfilMedico extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -115,7 +137,7 @@ public class PerfilMedico extends javax.swing.JFrame {
 
         btnCitas.setBackground(new java.awt.Color(218, 234, 247));
         btnCitas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/chequeo.png"))); // NOI18N
-        btnCitas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCitas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCitas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCitasActionPerformed(evt);
@@ -124,7 +146,7 @@ public class PerfilMedico extends javax.swing.JFrame {
 
         btnInformacion.setBackground(new java.awt.Color(218, 234, 247));
         btnInformacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/base-de-datos.png"))); // NOI18N
-        btnInformacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnInformacion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnInformacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInformacionActionPerformed(evt);
@@ -145,7 +167,7 @@ public class PerfilMedico extends javax.swing.JFrame {
 
         btnMedicamentos.setBackground(new java.awt.Color(218, 234, 247));
         btnMedicamentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/drugstore.png"))); // NOI18N
-        btnMedicamentos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMedicamentos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnMedicamentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMedicamentosActionPerformed(evt);
@@ -210,6 +232,13 @@ public class PerfilMedico extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnMedicamentosActionPerformed
 
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        SessionManager sessionmanager = SessionManager.getInstance();
+        sessionmanager.destroySession();
+        new Login().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnLogoutActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -249,6 +278,7 @@ public class PerfilMedico extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCitas;
     private javax.swing.JButton btnInformacion;
+    private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnMedicamentos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

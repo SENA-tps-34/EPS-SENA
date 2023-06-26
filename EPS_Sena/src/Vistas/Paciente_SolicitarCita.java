@@ -1,12 +1,12 @@
 package Vistas;
 
+import Class.SessionManager;
 import Controller.CitasController;
 import Controller.MedicoController;
 import Modelo.Usuario;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -253,8 +253,10 @@ public class Paciente_SolicitarCita extends javax.swing.JFrame {
             }else{
                 this.dispose();
                 String estado = "Pendiente";
+                SessionManager sessionmanager = SessionManager.getInstance();
+                String user = sessionmanager.getUserId();
                 CitasController cit = new CitasController();
-                cit.ValidarAddCitas(Observacion, java.sql.Date.valueOf(Fecha), hora, estado, medicos);
+                cit.ValidarAddCitas(Observacion, java.sql.Date.valueOf(Fecha), hora, estado, medicos, Integer.parseInt(user));
             }
         }
     }// GEN-LAST:event_jButton1ActionPerformed

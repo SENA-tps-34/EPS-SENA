@@ -34,14 +34,15 @@ public class Medico_CitasProgramadas extends javax.swing.JFrame {
         try {
             DefaultTableModel model = new DefaultTableModel();
             model = (DefaultTableModel) jTableCitas.getModel();
-            Object[] citas = new Object[6];
+            Object[] citas = new Object[7];
             for (int i = 0; i < list.size(); i++) {
                 citas[0] = list.get(i).getNumero();
                 citas[1] = list.get(i).getObservacion();
-                citas[2] = list.get(i).getFecha();
-                citas[3] = list.get(i).getHora();
-                citas[4] = list.get(i).getEstado();
-                citas[5] = BtnConfirmar;
+                citas[2] = list.get(i).getpaciente();
+                citas[3] = list.get(i).getFecha();
+                citas[4] = list.get(i).getHora();
+                citas[5] = list.get(i).getEstado();
+                citas[6] = BtnConfirmar;
                 model.addRow(citas);
             }
             jTableCitas.setDefaultRenderer(Object.class, new RenderTable());
@@ -58,10 +59,10 @@ public class Medico_CitasProgramadas extends javax.swing.JFrame {
         ArrayList<Citas> CitasList = new ArrayList<>();
         try {
             CitasController med = new CitasController();
-            ResultSet response = med.ListarCitas();
+            ResultSet response = med.ListarCitasMedico();
             Citas citas;
             while (response.next()) {
-                citas = new Citas(response.getInt("Numero"), response.getString("Observacion"), response.getDate("Fecha"),
+                citas = new Citas(response.getInt("Numero"), response.getString("Observacion"), response.getString("Paciente"), response.getDate("Fecha"),
                         response.getString("Hora"), response.getString("Estado"), response.getString("Medico"),
                         response.getInt("Consultorio_Medico"));
                 CitasList.add(citas);
@@ -88,6 +89,7 @@ public class Medico_CitasProgramadas extends javax.swing.JFrame {
         jTableCitas = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        btnRefreshTable = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
@@ -187,15 +189,20 @@ public class Medico_CitasProgramadas extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Numero", "Cita", "Fecha", "Hora", "Estado", "Accion"
+                "Numero", "Cita", "Paciente", "Fecha", "Hora", "Estado", "Accion"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTableCitas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableCitasMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jTableCitas);
@@ -203,6 +210,16 @@ public class Medico_CitasProgramadas extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Rockwell Condensed", 0, 36)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(45, 65, 115));
         jLabel6.setText("Citas Programadas");
+
+        btnRefreshTable.setBackground(new java.awt.Color(45, 65, 115));
+        btnRefreshTable.setFont(new java.awt.Font("Rockwell", 0, 18)); // NOI18N
+        btnRefreshTable.setForeground(new java.awt.Color(255, 255, 255));
+        btnRefreshTable.setText("refresh");
+        btnRefreshTable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshTableActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -218,17 +235,23 @@ public class Medico_CitasProgramadas extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(btnRefreshTable)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addGap(45, 45, 45)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnRefreshTable, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);
@@ -240,6 +263,36 @@ public class Medico_CitasProgramadas extends javax.swing.JFrame {
         new PerfilMedico().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnvolverActionPerformed
+
+    private void jTableCitasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCitasMouseClicked
+        int column = jTableCitas.getColumnModel().getColumnIndexAtX(evt.getX());
+        int rows = evt.getY() / jTableCitas.getRowHeight();
+        if (rows < jTableCitas.getRowCount() && rows >= 0 && column < jTableCitas.getColumnCount() && column >= 0) {
+            Object value = jTableCitas.getValueAt(rows, column);
+            if (value instanceof JButton) {
+                ((JButton) value).doClick();
+                JButton button = (JButton) value;
+                if (button.getName().equals("Confirmar")) {
+                    String estado = "Confirmada";
+                    int data = jTableCitas.getSelectedRow();
+                    int Id = (int)jTableCitas.getValueAt(data,0);
+                    CitasController cit = new CitasController();
+                    cit.ValidarUpdateCitaEstado(Id, estado);
+                }
+            }
+        }
+    }//GEN-LAST:event_jTableCitasMouseClicked
+
+    private void btnRefreshTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshTableActionPerformed
+        DefaultTableModel model = (DefaultTableModel) jTableCitas.getModel();
+        int num = model.getRowCount();
+        if (num == 0) {
+            showCitas();
+        } else if (num > 0) {
+            model.setRowCount(0);
+            showCitas();
+        }
+    }//GEN-LAST:event_btnRefreshTableActionPerformed
 
     /**
      * @param args the command line arguments
@@ -277,6 +330,7 @@ public class Medico_CitasProgramadas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton btnRefreshTable;
     private javax.swing.JButton btnvolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
