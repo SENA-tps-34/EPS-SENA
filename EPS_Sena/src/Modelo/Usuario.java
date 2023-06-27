@@ -165,7 +165,7 @@ public class Usuario {
     }
 
     public String toString(){
-        return Nombre;
+        return Documento +" - "+ Nombre;
     }
     
 }

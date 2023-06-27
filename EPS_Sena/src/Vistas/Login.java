@@ -3,7 +3,6 @@ package Vistas;
 import Controller.LoginController;
 import java.awt.Image;
 import java.awt.Toolkit;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {

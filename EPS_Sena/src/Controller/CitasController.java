@@ -52,6 +52,18 @@ public class CitasController {
         return response;
     }
 
+    public ResultSet ListarHorasMedico(int user, String fecha) {
+        ResultSet response = null;
+        try {
+            String sql = "SELECT Hora FROM `citas` WHERE Estado='Pendiente' AND Medico=" + user+ " AND Fecha = '"+fecha+"'";
+            response = cit.GetAllCitas(sql);
+            return response;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
+    
     public void ValidarAddCitas(String Observacion, Date Fecha, String Hora,
             String Estado, int Medico, int Paciente) {
         try {

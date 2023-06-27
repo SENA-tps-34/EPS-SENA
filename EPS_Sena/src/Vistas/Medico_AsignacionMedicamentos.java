@@ -39,8 +39,22 @@ public class Medico_AsignacionMedicamentos extends javax.swing.JFrame {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(fecha);
+
         jDateChooserFechaInicio.setMinSelectableDate(calendar.getTime());
-        jDateChooserFechaFin.setMinSelectableDate(calendar.getTime());
+        
+        jDateChooserFechaFin.setEnabled(false);
+        
+        jDateChooserFechaInicio.addPropertyChangeListener("date", e -> {
+            
+            Date Fecha = jDateChooserFechaInicio.getDate();
+            Calendar fecha_fin = Calendar.getInstance();
+            fecha_fin.setTime(Fecha);
+            
+            jDateChooserFechaFin.setEnabled(true);
+            
+            jDateChooserFechaFin.setMinSelectableDate(fecha_fin.getTime());
+            
+        });
 
         jDateChooserAsignada.setMinSelectableDate(calendar.getTime());
         jDateChooserAsignada.setMaxSelectableDate(calendar.getTime());
@@ -206,6 +220,11 @@ public class Medico_AsignacionMedicamentos extends javax.swing.JFrame {
         jDateChooserAsignada.setDateFormatString("yyyy-MM-dd");
 
         jDateChooserFechaInicio.setDateFormatString("yyyy-MM-dd");
+        jDateChooserFechaInicio.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jDateChooserFechaInicioPropertyChange(evt);
+            }
+        });
 
         jDateChooserFechaFin.setDateFormatString("yyyy-MM-dd");
 
@@ -337,12 +356,16 @@ public class Medico_AsignacionMedicamentos extends javax.swing.JFrame {
                         SessionManager sessionmanager = SessionManager.getInstance();
                         String user = sessionmanager.getUserId();
                         TratamientoController addtrata = new TratamientoController();
-                        addtrata.ValidarAddTratamiento(medicamento, paciente,java.sql.Date.valueOf(Fecha_Asignada) ,java.sql.Date.valueOf(Fecha_Inicio),java.sql.Date.valueOf(Fecha_Fin),Observacion, Integer.parseInt(user));
+                        addtrata.ValidarAddTratamiento(medicamento, paciente, java.sql.Date.valueOf(Fecha_Asignada), java.sql.Date.valueOf(Fecha_Inicio), java.sql.Date.valueOf(Fecha_Fin), Observacion, Integer.parseInt(user));
                     }
                 }
             }
         }
     }//GEN-LAST:event_jButtonAsignarActionPerformed
+
+    private void jDateChooserFechaInicioPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooserFechaInicioPropertyChange
+
+    }//GEN-LAST:event_jDateChooserFechaInicioPropertyChange
 
     /**
      * @param args the command line arguments

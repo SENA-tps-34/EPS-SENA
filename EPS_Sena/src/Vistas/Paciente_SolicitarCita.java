@@ -6,6 +6,8 @@ import Controller.MedicoController;
 import Modelo.Usuario;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -29,17 +31,34 @@ public class Paciente_SolicitarCita extends javax.swing.JFrame {
         calendar.setTime(fecha);
         jDateChooserFecha.setMinSelectableDate(calendar.getTime());
 
-        DefaultComboBoxModel<String> horaComboBoxModel = new DefaultComboBoxModel<>();
-        jComboBoxHora.setModel(horaComboBoxModel);
+        jDateChooserFecha.addPropertyChangeListener("date", new PropertyChangeListener(){
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                int medicos = jComboBoxMedicos.getItemAt(jComboBoxMedicos.getSelectedIndex()).getDocumento();
+                String Fecha = ((JTextField) jDateChooserFecha.getDateEditor().getUiComponent()).getText();
+                JOptionPane.showMessageDialog(rootPane, Fecha);
 
-        // Obtener horas desde las 07:00 hasta las 22:00 en intervalos de 15 minutos
-        for (int hora = 7; hora < 22; hora++) {
-            for (int minuto = 0; minuto < 60; minuto += 15) {
-                String horaMinuto = String.format("%02d:%02d", hora, minuto); // Formato "HH:mm"
-                horaComboBoxModel.addElement(horaMinuto);
+                ArrayList<String> horasOcupadas = obtenerHorasOcupadas(medicos, String.valueOf(Fecha));
+                DefaultComboBoxModel<String> horaComboBoxModel = new DefaultComboBoxModel<>();
+
+                for (int hora = 7; hora <= 22; hora++) {
+                    for (int minuto = 0; minuto < 60; minuto += 15) {
+                        String horaMinuto = String.format("%02d:%02d", hora, minuto);
+
+                        if (!horasOcupadas.contains(horaMinuto)) {
+                            horaComboBoxModel.addElement(horaMinuto);
+                        }
+                    }
+                }
+                jComboBoxHora.setModel(horaComboBoxModel);
             }
-        }
-
+            
+        });
+        
+        jComboBoxHora.setEnabled(false);
+        jDateChooserFecha.addPropertyChangeListener("date", e->{
+            jComboBoxHora.setEnabled(true);
+        });
     }
     // icono JFrame
 
@@ -144,6 +163,12 @@ public class Paciente_SolicitarCita extends javax.swing.JFrame {
 
         jComboBoxHora.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
+        jComboBoxMedicos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxMedicosActionPerformed(evt);
+            }
+        });
+
         jComboBoxObservacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Medicina General", "Odontologia", "Laboratorios" }));
         jComboBoxObservacion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -209,6 +234,25 @@ public class Paciente_SolicitarCita extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jComboBoxMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxMedicosActionPerformed
+
+    }//GEN-LAST:event_jComboBoxMedicosActionPerformed
+
+    private ArrayList<String> obtenerHorasOcupadas(int medico, String fecha) {
+        ArrayList<String> horasOcupadas = new ArrayList<>();
+        try {
+            CitasController admin = new CitasController();
+            ResultSet response = admin.ListarHorasMedico(medico, fecha);
+            while (response.next()) {
+                String horaOcupada = response.getString("Hora");
+                horasOcupadas.add(horaOcupada);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return horasOcupadas;
+    }
+
     public ArrayList<Usuario> listarMedicos() {
         ArrayList<Usuario> MedicoList = new ArrayList<>();
         try {
@@ -217,8 +261,8 @@ public class Paciente_SolicitarCita extends javax.swing.JFrame {
             Usuario user;
             while (response.next()) {
                 user = new Usuario(response.getString("TipoDocumento"), response.getInt("Identificacion"),
-                        response.getString("Nombre"), response.getInt("Consultorio_Medico"), 
-                        response.getDate("Fecha_Nacimiento"),response.getString("Sexo"));
+                        response.getString("Nombre"), response.getInt("Consultorio_Medico"),
+                        response.getDate("Fecha_Nacimiento"), response.getString("Sexo"));
                 MedicoList.add(user);
             }
         } catch (Exception e) {
@@ -233,7 +277,7 @@ public class Paciente_SolicitarCita extends javax.swing.JFrame {
             for (int i = 0; i < list.size(); i++) {
                 jComboBoxMedicos.addItem(new Usuario(list.get(i).getTipoDocumento(), list.get(i).getDocumento(),
                         list.get(i).getNombre(), list.get(i).getConsultorio(), list.get(i).getFecha_Nacimiento(),
-                    list.get(i).getSexo()));
+                        list.get(i).getSexo()));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -245,12 +289,12 @@ public class Paciente_SolicitarCita extends javax.swing.JFrame {
         String Fecha = ((JTextField) jDateChooserFecha.getDateEditor().getUiComponent()).getText();
         String hora = jComboBoxHora.getItemAt(jComboBoxHora.getSelectedIndex());
         String Observacion = jComboBoxObservacion.getItemAt(jComboBoxObservacion.getSelectedIndex());
-        if(((JTextField) jDateChooserFecha.getDateEditor().getUiComponent()).getText().isEmpty()){
+        if (((JTextField) jDateChooserFecha.getDateEditor().getUiComponent()).getText().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Debe seleccionar una fecha para la cita");
-        }else{
-            if("Seleccione".equals(Observacion)){
+        } else {
+            if ("Seleccione".equals(Observacion)) {
                 JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un tipo de cita");
-            }else{
+            } else {
                 this.dispose();
                 String estado = "Pendiente";
                 SessionManager sessionmanager = SessionManager.getInstance();
