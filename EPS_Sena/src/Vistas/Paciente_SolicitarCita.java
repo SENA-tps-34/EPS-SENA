@@ -36,7 +36,6 @@ public class Paciente_SolicitarCita extends javax.swing.JFrame {
             public void propertyChange(PropertyChangeEvent evt) {
                 int medicos = jComboBoxMedicos.getItemAt(jComboBoxMedicos.getSelectedIndex()).getDocumento();
                 String Fecha = ((JTextField) jDateChooserFecha.getDateEditor().getUiComponent()).getText();
-                JOptionPane.showMessageDialog(rootPane, Fecha);
 
                 ArrayList<String> horasOcupadas = obtenerHorasOcupadas(medicos, String.valueOf(Fecha));
                 DefaultComboBoxModel<String> horaComboBoxModel = new DefaultComboBoxModel<>();
