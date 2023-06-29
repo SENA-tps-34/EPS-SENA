@@ -3,6 +3,10 @@
 -- Base de datos: `gestionmedica`
 --
 
+CREATE DATABASE gestionmedica;
+
+USE gestionmedica;
+
 -- --------------------------------------------------------
 
 --
@@ -12,7 +16,7 @@
 CREATE TABLE `roles` (
   `IdRoles` int(11) NOT NULL PRIMARY KEY,
   `Cargo` varchar(50) NOT NULL
-)
+);
 
 --
 -- Volcado de datos para la tabla `roles`
@@ -37,9 +41,9 @@ CREATE TABLE `usuarios` (
   `Sexo` char(1) DEFAULT NULL,
   `Contraseña` varchar(50) DEFAULT NULL,
   `Consultorio_Medico` int(11) DEFAULT NULL,
-  `IdRoles` int(11) NOT NULL
+  `IdRoles` int(11) NOT NULL,
   FOREIGN KEY (Identificacion) REFERENCES roles (IdRoles)
-)
+);
 
 -- --------------------------------------------------------
 
@@ -51,7 +55,7 @@ CREATE TABLE `medicamentos` (
   `Id` int(11) NOT NULL PRIMARY KEY,
   `Nombre` varchar(50) NOT NULL,
   `Descripcion` text NOT NULL
-)
+);
 
 -- --------------------------------------------------------
 
@@ -69,7 +73,7 @@ CREATE TABLE `citas` (
   `Paciente` int(11) DEFAULT NULL,
   FOREIGN KEY (`Medico`) REFERENCES `usuarios` (`Identificacion`),
   FOREIGN KEY (`Paciente`) REFERENCES `usuarios` (`Identificacion`)
-)
+);
 
 -- --------------------------------------------------------
 
@@ -89,4 +93,4 @@ CREATE TABLE `tratamientos` (
   FOREIGN KEY (`Paciente`) REFERENCES `usuarios` (`Identificacion`),
   FOREIGN KEY (`Medicamento`) REFERENCES `medicamentos` (`Id`),
   FOREIGN KEY (`Medico`) REFERENCES `usuarios` (`Identificacion`)
-)
+);
